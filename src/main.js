@@ -1,5 +1,5 @@
 import "./assets/main.css";
-
+import '../services/firebase.js'
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 
