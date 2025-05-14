@@ -8,6 +8,6 @@ import RegistrationComponent from '@/components/RegistrationComponent.vue';
 
 <template>
   <div class="h-screen flex flex-col items-center justify-center gap-5">
-    <RegistrationComponent>
+    <RegistrationComponent/>
   </div>
 </template>
