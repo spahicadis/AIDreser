@@ -1,11 +1,13 @@
 <script setup>
-import {ref, computed, watch} from 'vue'
+import {ref} from 'vue'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { cloundinaryUplodImage } from '../../services/cloudinaryAPI';
 import { handleUserRegistration } from '../../services/registrationAPI';
 import iconhint from '../assets/IconHint.svg'
 import uploadicon from '../assets/UploadIcon.svg'
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 //Form input states:
 const userName = ref("");
@@ -62,19 +64,30 @@ const handleRegistrationAction = async() => {
   const user = {
     email: userEmail.value,
     password: userPassword.value,
+    name: userName.value,
+    surname: userSurname.value,
   }
 
-  //TODO slati podakte o psu. Objekt dog!
+  const dog = {
+    name: dogName.value,
+    breed: dogBreed.value,
+    age: dogAge.value,
+    weight: dogWeight.value,
+    treat: dogTreat.value,
+    image: dogImage.value,
+  }
 
   try {
-    const response = await handleUserRegistration(user);
+    const response = await handleUserRegistration(user, dog);
   
     if(response.status === 200) {
       toast.success(response.message, {
-        autoClose: 1000,
+        autoClose: 2000,
         position: "top-center"
       })
+      console.log(response.user?.uid);
       resetInputs()
+      router.push('/dashboard')
     }
 
     else {
@@ -112,26 +125,26 @@ const handleRegistrationAction = async() => {
     <div v-if="activeStep === 1" class="w-full h-full flex flex-col items-center gap-2">
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Ime</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Vaše ime"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Vaše ime" v-model="userName"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Prezime</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Vaše prezime"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Vaše prezime" v-model="userSurname"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[101px]">
       <label>Email</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Vaš email"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Vaš email" v-model="userEmail"/>
       <div class="flex gap-1.5 items-center">
         <img :src="iconhint" class="w-6 h-6 object-contain"/><span class="text-[#6A7682]">example@gmail.com</span>
       </div>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Lozinka</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" type="password" placeholder="Unesite lozinku"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" type="password" placeholder="Unesite lozinku" v-model="userPassword"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Lozinka</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" type="password" placeholder="Ponovite lozinku"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" type="password" placeholder="Ponovite lozinku" v-model="userRepeatedPassword"/>
     </div>
 
     <button class="w-[343px] h-[48px] bg-[#006FEE] text-white rounded-[14px] mt-13 cursor-pointer" @click="handleActiveStep(2)">Registriraj psa</button>
@@ -139,19 +152,19 @@ const handleRegistrationAction = async() => {
   <div v-if="activeStep === 2" class="w-full h-full flex flex-col items-center gap-2 relative">
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Ime</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Ime psa"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Ime psa" v-model="dogName"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Rasa</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Rasa psa"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Rasa psa" v-model="dogBreed"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Starost</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Godine psa"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Godine psa" v-model="dogAge"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[101px]">
       <label>Poslastica</label>
-      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Marka poslastice"/>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Marka poslastice" v-model="dogTreat"/>
       <div class="flex gap-1.5 items-center">
         <img :src="iconhint" class="w-6 h-6 object-contain"/><span class="text-[#6A7682]">Primjer: Pedigree</span>
       </div>
@@ -165,7 +178,7 @@ const handleRegistrationAction = async() => {
   
     <div class="flex items-center gap-5 mt-13">
       <button class="h-[48px] text-red-700 hover:text-white border border-red-700 hover:bg-red-700 rounded-[14px] px-5 cursor-pointer" @click="handleActiveStep(1)">Korak natrag</button>   
-      <button class="w-[180px] h-[48px] bg-[#006FEE] text-white rounded-[14px]">Dovršite registraciju</button>
+      <button class="w-[180px] h-[48px] bg-[#006FEE] text-white rounded-[14px] cursor-pointer" @click="handleRegistrationAction">Dovršite registraciju</button>
     </div>
   </div>
   

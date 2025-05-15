@@ -1,34 +1,45 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserDocumentOnRegister } from "./usersAPI.js";
 import { auth } from "./firebase.js";
+import { handleCreateUserDog } from "./dogsAPI.js";
 
-export const handleUserRegistration = async (user) => {
-
+export const handleUserRegistration = async (user, dog) => {
   try {
-    const createUser = await createUserWithEmailAndPassword(
+    const createUserAuthorization = await createUserWithEmailAndPassword(
       auth,
       user.email,
       user.password
     );
-   
-    return {
-      status: 200,
-      message: "Korisnik uspješno registriran",
-      user: createUser.user
+
+    if (!createUserAuthorization.user || !createUserAuthorization.user.uid) {
+      return;
     }
 
+    const createUserDocument = await createUserDocumentOnRegister(
+      user,
+      createUserAuthorization.user.uid
+    );
+
+    //const createDog = await handleCreateUserDog(user, dog);
+
+    return {
+      status: 200,
+      message: "Korisnik i pas uspješno registrirani",
+      user: auth.currentUser,
+    };
   } catch (error) {
     let errMessage = "Pogreška prilikom registracije";
-    switch(error.code) {
-      case 'auth/email-already-in-use':
+    switch (error.code) {
+      case "auth/email-already-in-use":
         errMessage = "Email je već registriran";
         break;
-      case 'auth/invalid-email':
+      case "auth/invalid-email":
         errMessage = "Neispravan format maila";
         break;
-      case 'auth/weak-password':
+      case "auth/weak-password":
         errMessage = "Lozinka je preslaba";
         break;
-      case 'auth/operation-not-allowed':
+      case "auth/operation-not-allowed":
         errMessage = "Registracija trenutno nije moguća";
         break;
       default:
@@ -37,6 +48,6 @@ export const handleUserRegistration = async (user) => {
     return {
       status: 500,
       message: errMessage,
-    }
+    };
   }
 };
