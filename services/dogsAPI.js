@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { doc, setDoc, collection } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection } from "firebase/firestore";
 
 //Create document in dogs collection. Document will have data from the registration form. Document will hold same uid which user get in authentication
 export const createDogDocumentOnRegistration = async (dog, uid) => {
@@ -13,3 +13,21 @@ export const createDogDocumentOnRegistration = async (dog, uid) => {
     throw new Error(err.message);
   }
 };
+
+
+export const getDogDocumentData = async(uid) => {
+ 
+  const docRef = doc(db, "dogs", uid)
+  const docSnep = await getDoc(docRef)
+
+  console.log(docSnep.data())
+
+  if(docSnep.exists()) {
+    return docSnep.data()
+  }
+  else {
+    null
+  }
+
+
+}

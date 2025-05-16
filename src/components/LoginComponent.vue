@@ -66,7 +66,7 @@ const handleSignInAction = async() => {
   </div>
   <div class="w-[343px] h-[65px] flex flex-col gap-1">
     <label>Lozinka</label>
-    <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Unesite lozinka za prijavu" v-model="userPassword"
+    <input type="password" class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Unesite lozinka za prijavu" v-model="userPassword"
   </div>
 
   <button class="w-[343px] h-[48px] bg-[#006FEE] text-white rounded-[14px] mt-13 cursor-pointer" @click="handleSignInAction()">Prijava</button>
