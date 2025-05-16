@@ -3,7 +3,7 @@ import {ref} from 'vue'
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { cloundinaryUplodImage } from '../../services/cloudinaryAPI';
-import { handleUserRegistration } from '../../services/registrationAPI';
+import { handleUserRegistration } from '../../services/authAPI';
 import iconhint from '../assets/IconHint.svg'
 import uploadicon from '../assets/UploadIcon.svg'
 import { useRouter } from 'vue-router';
@@ -49,8 +49,6 @@ const handleActiveStep = (step) => {
 }
 
 
-
-
 //Retrieving the name of uploadad file to display it on the form
 const handleUploadFile = async(e) => {
   const file = e.target.files[0]
@@ -82,19 +80,18 @@ const handleRegistrationAction = async() => {
   
     if(response.status === 200) {
       toast.success(response.message, {
-        autoClose: 2000,
+        autoClose: 3000,
         position: "top-center"
       })
-      console.log(response.user?.uid);
       resetInputs()
       router.push('/dashboard')
     }
 
     else {
-      toast.error(response.message, {autoClose: 2000, position: "top-center"})
+      toast.error(response.message, {autoClose: 3000, position: "top-center"})
     }
   } catch (error) {
-    toast.error(error.message, {autoClose: 2000, position: "top-center"})
+    toast.error(error.message, {autoClose: 3000, position: "top-center"})
   }
 }
 
@@ -161,6 +158,10 @@ const handleRegistrationAction = async() => {
     <div class="flex flex-col gap-1 w-[343px] h-[76px]">
       <label>Starost</label>
       <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Godine psa" v-model="dogAge"/>
+    </div>
+    <div class="flex flex-col gap-1 w-[343px] h-[76px]">
+      <label>Težina</label>
+      <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Težina psa u kg" v-model="dogWeight"/>
     </div>
     <div class="flex flex-col gap-1 w-[343px] h-[101px]">
       <label>Poslastica</label>

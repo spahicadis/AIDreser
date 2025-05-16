@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
+import { toast } from "vue3-toastify";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,13 +19,30 @@ const router = createRouter({
     },
     {
       path: "/login",
+      name: "Login",
       component: () => import("@/views/LoginView.vue"),
     },
     {
       path: "/dashboard",
-      component: () => import("@/views/DashboardView.vue")
-    }
+      name: "Dashboard",
+      component: () => import("@/views/DashboardView.vue"),
+    },
   ],
+});
+
+//Basic dashboard protection in the development phase for testing the correctness of registration, login and whether the currentUser state is persistent
+//Fix displaying of toast(longer display)
+router.beforeEach(async (to, from, next) => {
+  const authStore = useAuthStore();
+  if (authStore.currentUser === null && to.name === "Dashboard") {
+    toast.error("Molimo prijavite se kako bi imali pristup", {
+      autoClose: false,
+      pauseOnHover: true,
+      position: "top-right",
+    });
+    return next({ name: "Login" });
+  }
+  return next();
 });
 
 export default router;

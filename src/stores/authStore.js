@@ -11,7 +11,7 @@ export const useAuthStore = defineStore("authStore", () => {
       if (loggedUser) {
         currentUser.value = {
           uid: loggedUser.uid,
-          displayName: loggedUser.displayName,
+          //displayName: loggedUser.displayName,
           email: loggedUser.email,
         };
       } else {
@@ -20,18 +20,8 @@ export const useAuthStore = defineStore("authStore", () => {
     });
   };
 
-  const userSignOut = async () => {
-    try {
-      const signOut = await auth.signOut();
-      console.log(signOut);
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  };
-
   return {
     init,
     currentUser,
-    userSignOut,
   };
 });

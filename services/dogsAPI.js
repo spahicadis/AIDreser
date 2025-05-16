@@ -1,20 +1,15 @@
 import { db } from "./firebase";
-import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection } from "firebase/firestore";
 
-export const handleCreateUserDog = async (user, dog) => {
+//Create document in dogs collection. Document will have data from the registration form. Document will hold same uid which user get in authentication
+export const createDogDocumentOnRegistration = async (dog, uid) => {
   try {
-    const createDog = await addDoc(collection(firestore, "dogs"), {
-      name: dog.name,
-      breed: dog.breed,
-      age: dog.age,
-      weight: dog.weight,
-      treat: dog.treat,
-      image: dog.image,
+    await setDoc(doc(db, "dogs", uid), {
+      ...dog,
       level: "Početnik",
-      numberOfCompletedCommands: 0,
+      commandsFinished: 0,
     });
-    console.log("Document written with ID: ", docRef.id);
   } catch (err) {
-    console.log(err.message);
+    throw new Error(err.message);
   }
 };

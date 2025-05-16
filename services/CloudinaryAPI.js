@@ -16,6 +16,5 @@ export const cloundinaryUplodImage = async (fileImage) => {
     return image.url;
   } catch (err) {
     throw new Error(err.message);
-  } finally {
   }
 };
