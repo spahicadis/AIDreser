@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 import { toast } from "vue3-toastify";
+import { auth } from "../../services/firebase";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,8 +33,10 @@ const router = createRouter({
 
 //Basic dashboard protection in the development phase for testing the correctness of registration, login and whether the currentUser state is persistent
 //Fix displaying of toast(longer display)
-/*router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
+  await authStore.init() 
+  
   if (authStore.currentUser === null && to.name === "Dashboard") {
     toast.error("Molimo prijavite se kako bi imali pristup", {
       autoClose: false,
@@ -43,6 +46,6 @@ const router = createRouter({
     return next({ name: "Login" });
   }
   return next();
-});*/
+});
 
 export default router;

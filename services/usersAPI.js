@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { doc, setDoc, getDoc, collection } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 //Create user document in collection whit others data from form after registration. Document will hold same uid which user get in authentication
 export const createUserDocumentOnRegister = async (user, uid) => {
@@ -13,8 +13,7 @@ export const createUserDocumentOnRegister = async (user, uid) => {
   }
 };
 
-
-
+//Fetch data about logged user
 export const getUserDocumentData = async(uid) => {
   
   const docRef = doc(db, "users", uid)

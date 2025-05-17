@@ -19,6 +19,7 @@ export const useProfileStore = defineStore('profileStore', () => {
 
 
       profileData.value = {
+        uid: authStore.currentUser.uid,
         user: userData,
         dog: dogData,
       }
@@ -37,5 +38,4 @@ return {
   getProfileData,
   isLoading
 }
-
 })
