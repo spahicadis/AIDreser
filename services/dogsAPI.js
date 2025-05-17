@@ -20,8 +20,6 @@ export const getDogDocumentData = async(uid) => {
   const docRef = doc(db, "dogs", uid)
   const docSnep = await getDoc(docRef)
 
-  console.log(docSnep.data())
-
   if(docSnep.exists()) {
     return docSnep.data()
   }

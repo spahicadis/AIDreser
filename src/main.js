@@ -1,8 +1,8 @@
 import "./assets/main.css";
 import "../services/firebase.js"
-import { useAuthStore } from "./stores/authStore";
-import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import { useAuthStore } from "./stores/authStore";
+
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
@@ -15,6 +15,9 @@ app.use(createPinia());
 app.use(router);
 
 const authStore = useAuthStore();
-authStore.init();
+authStore.init()
+  .then(() => {
+    app.mount("#app");
+  })
 
-app.mount("#app");
+
