@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, onUnmounted} from 'vue'
-import { handleUserSignOut } from '../../services/authAPI';
+import DashboardSidebar from '@/components/DashboardSidebar.vue';
 import { useProfileStore } from '@/stores/profileStore';
 import { getRealtimeDogDocumentData } from '../../services/dogsAPI';
 const profileStore = useProfileStore();
@@ -30,8 +30,13 @@ onUnmounted(() => {
 
 
 
+
+
 <template>
 
+<div class="w-full h-screen flex flex-col md:flex-row gap-7 md:gap-4">
+  <DashboardSidebar/>
+</div>
 
 
 
