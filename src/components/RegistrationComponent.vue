@@ -84,7 +84,7 @@ const handleRegistrationAction = async() => {
         position: "top-center"
       })
       resetInputs()
-      router.push('/dashboard')
+      router.push('/dashboard/commands')
     }
 
     else {

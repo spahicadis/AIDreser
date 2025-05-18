@@ -3,7 +3,6 @@ import "../services/firebase.js"
 import "vue3-toastify/dist/index.css";
 import { useAuthStore } from "./stores/authStore";
 
-
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref,  } from "vue";
+import { ref } from "vue";
 import { auth } from "../../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 

@@ -30,7 +30,7 @@ const handleSignInAction = async() => {
       autoClose: 3000,
     })
     resetInputs();
-    router.push("/dashboard")
+    router.push("/dashboard/commands")
   }
 
   else {

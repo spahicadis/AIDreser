@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 import { toast } from "vue3-toastify";
-import { auth } from "../../services/firebase";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,28 +12,32 @@ const router = createRouter({
     {
       path: "/onboarding",
       component: () => import("@/views/OnBoardingView.vue"),
+      name: "Onboarding"
     },
     {
       path: "/register",
       component: () => import("@/views/RegistrationView.vue"),
+      name: "Register"
     },
     {
       path: "/login",
-      name: "Login",
       component: () => import("@/views/LoginView.vue"),
+      name: "Login",
     },
     {
       path: "/dashboard",
-      name: "Dashboard",
       component: () => import("@/views/DashboardView.vue"),
+      name: "Dashboard",
       children: [
         {
           path: "commands",
-          component: () => import("@/views/DashboardView.vue")
+          component: () => import("@/views/DashboardCommandsView.vue"),
+          name: "Commands"
         },
         {
           path: "settings",
-          component: () => import("@/views/DashboardSettingsView.vue")
+          component: () => import("@/views/DashboardSettingsView.vue"),
+          name: "Settings"
         }
       ]
     },

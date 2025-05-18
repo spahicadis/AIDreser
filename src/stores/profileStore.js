@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, reactive, computed } from "vue";
+import { ref } from "vue";
 import { getUserDocumentData } from "../../services/usersAPI";
 import { getDogDocumentData } from "../../services/dogsAPI";
 import { useAuthStore } from "./authStore";

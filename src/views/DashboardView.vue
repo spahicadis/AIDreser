@@ -30,13 +30,16 @@ onUnmounted(() => {
 
 
 
-
-
 <template>
 
-<div class="w-full h-screen flex flex-col md:flex-row gap-7 md:gap-4">
+<div class="w-full h-screen flex flex-col lg:flex-row  md:gap-4">
   <DashboardSidebar/>
+<div class="lg:ml-[300px] p-10">
+  <RouterView/>
 </div>
+</div>
+
+
 
 
 
