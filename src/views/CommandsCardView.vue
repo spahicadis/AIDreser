@@ -29,7 +29,7 @@ onMounted(async() => {
   
 <div class="h-full w-full flex flex-col gap-1.5">
   <h2 class="text-xl font-semibold">Naredbe</h2>
-  <div class="w-full h-full pt-5 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-10">
+  <div class="w-full h-full py-8 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:gap-10 gap-8">
     <CommandCardComponent
     v-for="(data, index) in commandsStore.commandsData"
     :key="index"
@@ -37,6 +37,7 @@ onMounted(async() => {
     :command-img="commandsStore.isLoading ? undefined : data.commandImage"
     :command-title="commandsStore.isLoading ? undefined : data.commandTitle"
     :command-difficulty="commandsStore.isLoading ? undefined : data.commandDifficulty"
+    :command-level="commandsStore.isLoading ? undefined : data.commandLevel"
     
     />
 
