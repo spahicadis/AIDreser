@@ -1,12 +1,16 @@
-<sciprt setup>
+<script setup>
+import DashboardSettingsComponent from '@/components/DashboardSettingsComponent.vue';
 
 
 
-
-
-</sciprt>
+</script>
 
 <template>
 
+<div>
+
+<DashboardSettingsComponent/>
+
+</div>
   
 </template>

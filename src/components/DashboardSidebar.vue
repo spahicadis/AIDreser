@@ -17,7 +17,6 @@ const handleToogleHamburger = () => {
   console.log(isMenuOpen.value)
 }
 
-
 const handleSignOutAction = async() => {
 
   try {
@@ -38,7 +37,7 @@ const handleSignOutAction = async() => {
 
 <template>
 
-<div class="hidden md:block min-w-[300px] h-screen md:border-r-2 md:border-r-[#e5e7eb] md:fixed left-0 top-0 bottom-0 pt-1.5">
+<div class="hidden lg:block min-w-[300px] h-screen lg:border-r-2 md:border-r-[#e5e7eb] lg:fixed lg:left-0 lg:top-0 lg:bottom-0 pt-1.5">
   <div class="w-full h-full flex flex-row md:flex-col md:gap-15 p-4">
     <div class="w-full h-1/13 flex flex-row gap-3.5 items-center">
       <div v-if="profileStore.isLoading" class="animate-pulse">
@@ -78,7 +77,7 @@ const handleSignOutAction = async() => {
     </div>
   </div>
 </div>
-<div class="sticky top-0 w-full min-h-[60px] shadow-xl md:hidden flex flex-row items-center justify-between border-[#EEEEEE] rounded-full p-5 z-99 bg-[#EEEEEE]">
+<div class="sticky top-0 w-full min-h-[60px] max-h-[60px] shadow-xl lg:hidden flex flex-row items-center justify-between border-[#EEEEEE] rounded-full p-5 z-99 bg-[#f6f9fc]">
   <div>
   <div class="flex items-center gap-3" v-if="profileStore.isLoading">
     <div class="h-[48px] bg-gray-200 rounded-full dark:bg-gray-700 w-[48px]"></div>
@@ -96,8 +95,8 @@ const handleSignOutAction = async() => {
 <div>
 
 </div>
-<transition name="fade-slide">
-<div v-if="isMenuOpen" class="fixed inset-0 w-full h-screen backdrop-blur-xs z-50 transition-all duration-500">
+<Transition name="slide-animation">
+<div v-if="isMenuOpen" class="fixed inset-0 w-full h-screen backdrop-blur-xs z-50">
   <ul class="z-30 fixed top-[60px] p-5 bg-white w-full">
         <RouterLink 
         to="/dashboard/commands"
@@ -119,38 +118,42 @@ const handleSignOutAction = async() => {
       </li>
       </ul>
 </div>
-</transition>
+</Transition>
 </template>
-
 
 
 <style scoped>
 
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.5s ease;
+.slide-animation-enter-from {
+transform: translateY(-100px);
+opacity: 0;
 }
 
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-.fade-slide-enter-to {
+.slide-animation-enter-to{
+  transform: translateY(0px);
   opacity: 1;
-  transform: translateY(0);
 }
 
-.fade-slide-leave-from {
+.slide-animation-enter-active {
+  transition: all 0.3s ease-in;
+}
+
+.slide-animation-leave-from {
+  transform: translateY(0);
   opacity: 1;
-  transform: translateY(0);
 }
 
-.fade-slide-leave-to {
+.slide-animation-leave-to {
+  transform: translateY(-100px);
   opacity: 0;
-  transform: translateY(-20px);
 }
 
+.slide-animation-leave-active {
+  transition: all 0.3s ease-in;
+}
 
 
 </style>
+
+
+
