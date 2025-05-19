@@ -2,6 +2,7 @@
 import {onMounted, onUnmounted} from 'vue'
 import DashboardSidebar from '@/components/DashboardSidebar.vue';
 import { useProfileStore } from '@/stores/profileStore';
+import { getAllCommands } from '../../services/commandsAPI';
 import { getRealtimeDogDocumentData } from '../../services/dogsAPI';
 const profileStore = useProfileStore();
 let unsubscribe = null;

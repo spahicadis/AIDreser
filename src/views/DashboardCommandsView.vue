@@ -1,6 +1,6 @@
 <script setup>
 import GeneralStatusComponent from '@/components/GeneralStatusComponent.vue';
-
+import CommandsCardView from './CommandsCardView.vue';
 
 </script>
 
@@ -11,8 +11,12 @@ import GeneralStatusComponent from '@/components/GeneralStatusComponent.vue';
 
 <div class="w-full h-screen flex flex-col gap-5">
 
+<div>
   <GeneralStatusComponent/>
-
+</div>
+<div>
+    <CommandsCardView/>
+</div>
 
 </div>
 
