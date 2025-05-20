@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc,doc } from "firebase/firestore";
 
 //Fetch all commands documents from commands collection 
 export const getAllCommands = async() => {
@@ -16,9 +16,7 @@ export const getAllCommands = async() => {
       })
     })
     
-    console.log(docs)
-    
-    
+  
 
     return docs;
   
@@ -27,3 +25,25 @@ export const getAllCommands = async() => {
   }
 
 }
+
+//Get single command
+export const getSingleComand = async(id) => {
+
+  try {
+    
+    const docRef = doc(db, 'commands', id);
+    const docSnap = await getDoc(docRef);
+
+    if(docSnap.exists()) {
+      return docSnap.data()
+    }
+    else {
+      return null;
+    }
+
+  } catch (error) {
+      throw new Error(error.message)
+  }
+
+  
+} 

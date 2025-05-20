@@ -77,7 +77,7 @@ const handleSignOutAction = async() => {
     </div>
   </div>
 </div>
-<div class="sticky top-0 w-full min-h-[60px] max-h-[60px] shadow-xl lg:hidden flex flex-row items-center justify-between border-[#EEEEEE] rounded-full p-5 z-99 bg-[#f6f9fc]">
+<div class="sticky top-0 w-full min-h-[60px] max-h-[60px] shadow-xl lg:hidden flex flex-row items-center justify-between border-[#EEEEEE] rounded-full p-5 z-49 bg-[#f6f9fc]">
   <div>
   <div class="flex items-center gap-3" v-if="profileStore.isLoading">
     <div class="h-[48px] bg-gray-200 rounded-full dark:bg-gray-700 w-[48px]"></div>
@@ -96,7 +96,7 @@ const handleSignOutAction = async() => {
 
 </div>
 <Transition name="slide-animation">
-<div v-if="isMenuOpen" class="fixed inset-0 w-full h-screen backdrop-blur-xs z-50">
+<div v-if="isMenuOpen" class="fixed inset-0 backdrop-blur-xs">
   <ul class="z-30 fixed top-[60px] p-5 bg-white w-full">
         <RouterLink 
         to="/dashboard/commands"

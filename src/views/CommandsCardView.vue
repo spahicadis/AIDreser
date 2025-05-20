@@ -1,8 +1,42 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import CommandCardComponent from '@/components/CommandCardComponent.vue';
 import { useCommandsStore } from '@/stores/commandsStore';
+import { getSingleComand } from '../../services/commandsAPI';
+import CommandCardModal from '@/components/CommandCardModal.vue';
 const commandsStore = useCommandsStore()
+const openModal = ref(false)
+const contentModal = ref(null);
+const isContentLoading = ref(true)
+
+
+const handleModalContent = async(id) => {
+  try {
+    contentModal.value = await getSingleComand(id);
+    console.log(contentModal.value)
+  } catch (error) {
+    throw new Error(error.message)
+  }
+  finally {
+    isContentLoading.value = false
+  }
+}
+
+
+const handleVisibilityOfModal = async(e) => {
+
+  if(e.modalVisibillity === true) {
+    openModal.value = e.modalVisibillity;
+    try {
+      await handleModalContent(e.commandID)
+    } catch (error) {
+      throw new Error(error.message)
+    }
+    
+  }
+  openModal.value = e
+
+}
 
 
 onMounted(async() => {
@@ -20,6 +54,9 @@ onMounted(async() => {
 
 
 
+
+
+
 </script>
 
 
@@ -29,7 +66,7 @@ onMounted(async() => {
   
 <div class="h-full w-full flex flex-col gap-1.5">
   <h2 class="text-xl font-semibold">Naredbe</h2>
-  <div class="w-full h-full py-8 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:gap-10 gap-8">
+  <div class="w-full h-full py-8 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:gap-10 gap-8 xl:grid-rows-3 xl:grid-cols-3 justify-items-center">
     <CommandCardComponent
     v-for="(data, index) in commandsStore.commandsData"
     :key="index"
@@ -38,10 +75,17 @@ onMounted(async() => {
     :command-title="commandsStore.isLoading ? undefined : data.commandTitle"
     :command-difficulty="commandsStore.isLoading ? undefined : data.commandDifficulty"
     :command-level="commandsStore.isLoading ? undefined : data.commandLevel"
-    
+    @handle-modal="handleVisibilityOfModal"
     />
 
   </div>
+  <CommandCardModal
+  :is-open="openModal"
+  :name-of-command="isContentLoading ? undefined : contentModal.commandTitle"
+  :video-for-command="isContentLoading ? undefined : contentModal.modalIframe"
+  :steps-for-command="isContentLoading ? undefined : contentModal.modalSteps"
+  @handle-modal="handleVisibilityOfModal"
+  />
 </div>
   
 
