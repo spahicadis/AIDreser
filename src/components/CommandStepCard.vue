@@ -26,15 +26,14 @@ const props = defineProps({
 <template>
 
 
-<div class="w-1/3 h-full rounded-lg shadow-sm border-gray-300 border-2">
-      <div class="w-full overflow-hidden h-[50%] rounded-tl-md rounded-tr-m">
+<div class="w-full h-auto rounded-lg shadow-sm border-gray-300 border-2 flex flex-col">
+      <div class="w-full h-[200px] overflow-hidden rounded-tl-md rounded-tr-md">
         <img :src="stepImage" class="w-full h-full object-cover" loading="lazy" alt="Command step image" />
       </div>
 
-      <div class="w-full h-[50%] p-2.5">
-        <p class="text-center text-xs max-w-[180px]">{{ stepText }}</p>
+      <div class="w-full max-h-[50%] p-2.5 flex items-center justify-center">
+        <p>{{ stepText }}</p>
       </div>
-
 </div>
 
 </template>

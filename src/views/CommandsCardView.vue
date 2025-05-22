@@ -25,8 +25,8 @@ const handleModalContent = async(id) => {
 
 const handleVisibilityOfModal = async(e) => {
 
-  if(e.modalVisibillity === true) {
-    openModal.value = e.modalVisibillity;
+  if(e.modalVisibility === true) {
+    openModal.value = e.modalVisibility;
     try {
       await handleModalContent(e.commandID)
     } catch (error) {
@@ -34,7 +34,7 @@ const handleVisibilityOfModal = async(e) => {
     }
     
   }
-  openModal.value = e
+  openModal.value = e.modalVisibility
 
 }
 
@@ -51,9 +51,6 @@ onMounted(async() => {
   }
 
 })
-
-
-
 
 
 
@@ -83,6 +80,7 @@ onMounted(async() => {
   :is-open="openModal"
   :name-of-command="isContentLoading ? undefined : contentModal.commandTitle"
   :video-for-command="isContentLoading ? undefined : contentModal.modalIframe"
+  :text-for-command="isContentLoading ? undefined : contentModal.modalText"
   :steps-for-command="isContentLoading ? undefined : contentModal.modalSteps"
   @handle-modal="handleVisibilityOfModal"
   />

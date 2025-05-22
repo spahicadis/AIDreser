@@ -31,11 +31,11 @@ const props = defineProps({
 
 })
 
-const profleStore = useProfileStore()
+const profileStore = useProfileStore()
 const isDisabled = ref(false)
 
-watch(profleStore, () => {
-  if(!profleStore.isLoading && profleStore.profileData.dog.levelNumber < props.commandLevel) {
+watch(profileStore, () => {
+  if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber < props.commandLevel) {
       isDisabled.value = true
   }
 }, {deep: true})
@@ -60,7 +60,7 @@ watch(profleStore, () => {
       <p class="font-semibold">Težina: {{ commandDifficulty }}</p>
       </div>
       <div class="w-full flex items-center">
-        <button class="w-full text-white font-semibold py-1.5 rounded-xl" :class="isDisabled ? 'disabled:opacity-50 bg-[#006FEE] cursor-not-allowed' : 'bg-[#006FEE] cursor-pointer'" :disabled="isDisabled" @click="$emit('handleModal', { modalVisibillity: true, commandID: commandID},)">Započni</button>
+        <button class="w-full text-white font-semibold py-1.5 rounded-xl" :class="isDisabled ? 'disabled:opacity-50 bg-[#006FEE] cursor-not-allowed' : 'bg-[#006FEE] cursor-pointer'" :disabled="isDisabled" @click="$emit('handleModal', { modalVisibility: true, commandID: commandID },)">Započni</button>
       </div>
     </div>
 
