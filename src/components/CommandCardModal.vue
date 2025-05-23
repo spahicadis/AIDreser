@@ -1,8 +1,9 @@
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, useTemplateRef, nextTick } from "vue";
 import closeicon from "../assets/modalCloseIcon.svg"
 import CommandStepCard from "./CommandStepCard.vue";
-import { cloundinaryUplodImage } from "../../services/cloudinaryAPI";
+
+
 
 const props = defineProps({
   isOpen: {
@@ -39,7 +40,9 @@ const props = defineProps({
 })
 
 const file = ref(null)
-const uploaded_image = ref(null)
+const preview = ref(null)
+const imageView = useTemplateRef('image-preview')
+const isUploaded = ref(false)
 
 
 watch(() => props.isOpen, (visibility) => {
@@ -51,10 +54,17 @@ watch(() => props.isOpen, (visibility) => {
 })
 
 
-
-
 const handleUploadFile = async(e) => {
    file.value = e.target.files[0]
+   if(file.value) {
+    preview.value = URL.createObjectURL(file.value)
+    isUploaded.value = true;
+   }
+   await nextTick()//Cekamo da se DOM ucita rjesenja sa interneta 
+   if(preview.value) {
+    imageView.value.scrollIntoView({behavior: 'smooth'})
+   }
+
    //uploaded_image.value = await cloundinaryUplodImage(file, "training-photos");
  }
 
@@ -91,17 +101,16 @@ const handleUploadFile = async(e) => {
         />
       </div>
       <div class="w-full flex flex-col gap-2.5">
-          <h3 class="text-center font-semibold text-md">Nakon odradenih koraka, uslikajte svoga psa kako izvodi naredbu i pošaljite slike treneru.</h3>
+          <h3 class="text-center font-semibold text-md">Nakon odrađenih koraka, uslikajte svoga psa kako izvodi naredbu i pošaljite slike treneru.</h3>
           <div class="w-full flex items-center justify-center gap-5">
            <label for="camera" class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2">USLIKAJ</label>
             <input type="file" capture="enviroment" accept="image/*" class="opacity-0 w-0 h-0 absolute" id="camera" @change="handleUploadFile"/>
-           <button class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2" @click="$emit('sendImages', {img: file, question: commandQuestion})">POŠALJI TRENERU</button>
+           <button class="text-white rounded-xl font-semibold p-2" :class="isUploaded ? 'bg-[#006FEE] cursor-pointer' : 'opacity-50 cursor-not-allowed bg-[#006FEE]'"  @click="$emit('sendImages', {img: file, question: commandQuestion})">POŠALJI TRENERU</button>
           </div>        
       </div>
-      <div v-if="uploaded_image
-      " class="w-full h-auto flex flex-col gap-3">
-        <h2 class="font-semibold">Slika sa treninga</h2>
-        <img :src="uploaded_image" alt="Image from the training" class="max-w-full object-contain" />
+      <div v-if="preview" class="w-full h-auto flex flex-col gap-3">
+        <h2 class="font-semibold">Slika sa treninga:</h2>
+        <img ref="image-preview" :src="preview" alt="Image from the training" class="max-w-full w-1/2  rounded-md" />
       </div>
     </div>
 </div>

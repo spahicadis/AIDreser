@@ -29,7 +29,7 @@ const result = await ai.models.generateContent({
         data: imageBase64,
       },
     },
-    { text: prompt}
+    { text: prompt + ". Plesae reply only with yes or no."}
   ],
 })
 return result.text

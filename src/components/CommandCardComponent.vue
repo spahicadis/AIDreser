@@ -38,6 +38,9 @@ watch(profileStore, () => {
   if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber < props.commandLevel) {
       isDisabled.value = true
   }
+  else if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber <= props.commandLevel) {
+    isDisabled.value = false;
+  }
 }, {deep: true})
 
 

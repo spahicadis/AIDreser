@@ -53,7 +53,7 @@ const handleActiveStep = (step) => {
 const handleUploadFile = async(e) => {
   const file = e.target.files[0]
   uploadedFile.value = `Odabrana slika: ${file.name}`
-  const image_url = await cloundinaryUplodImage(file, "dog-photos");
+  const image_url = await cloundinaryUplodImage(file);
   dogImage.value = image_url;
 }
 
