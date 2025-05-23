@@ -2,10 +2,11 @@ import axios from "axios";
 const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 
 //Razmisliti kasnije o ubacivanju authentication signatures.
-export const cloundinaryUplodImage = async (fileImage) => {
+export const cloundinaryUplodImage = async (fileImage, presetName) => {
   const formData = new FormData();
   formData.append("file", fileImage);
-  formData.append("upload_preset", "dog-photos");
+  formData.append("upload_preset", presetName);
+  formData.append("folder", "imagesForAI")
 
   try {
     const response = await axios.post(

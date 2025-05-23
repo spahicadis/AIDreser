@@ -12,7 +12,7 @@ const props = defineProps({
 
   nameOfCommand: {
     type: String,
-    required: true
+    required: true,
   },
 
   videoForCommand: {
@@ -27,13 +27,18 @@ const props = defineProps({
 
   stepsForCommand: {
     type: Array,
-    required: true
+    required: true,
+  },
+
+  commandQuestion: {
+    type: String,
+    required: true,
   }
 
   //Kasnije ostalo za prop drilling mali. Emmits?
 })
 
-const uploaded_image = ref(null)
+const file = ref(null)
 
 
 
@@ -46,11 +51,14 @@ watch(() => props.isOpen, (visibility) => {
 })
 
 
+
+
 const handleUploadFile = async(e) => {
-  const file = e.target.files[0]
-  uploaded_image.value = await cloundinaryUplodImage(file);
-  console.log(uploaded_image.value)
-}
+   file.value = e.target.files[0]
+   //uploaded_image.value = await cloundinaryUplodImage(file, "training-photos");
+ }
+
+ 
 
 
 
@@ -86,21 +94,19 @@ const handleUploadFile = async(e) => {
           <h3 class="text-center font-semibold text-md">Nakon odradenih koraka, uslikajte svoga psa kako izvodi naredbu i pošaljite slike treneru.</h3>
           <div class="w-full flex items-center justify-center gap-5">
            <label for="camera" class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2">USLIKAJ</label>
-            <input type="file" capture="enviroment" accept="image/*" class="opacity-0 w-0 h-0 absolute" id="camera" @change="handleUploadFile(e)"/>
-           <button class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2">POŠALJI TRENERU</button>
+            <input type="file" capture="enviroment" accept="image/*" class="opacity-0 w-0 h-0 absolute" id="camera" @change="handleUploadFile"/>
+           <button class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2" @click="$emit('sendImages', {img: file, question: commandQuestion})">POŠALJI TRENERU</button>
           </div>        
       </div>
-      <div v-if="uploaded_image" class="w-full">
-        <p>Slika sa treninga:</p>
-        <img :src="uploaded_image" alt="Image from the training"/>
+      <div v-if="uploaded_image" class="w-full h-auto flex flex-col gap-3">
+        <h2 class="font-semibold">Slika sa treninga</h2>
+        <img :src="uploaded_image" alt="Image from the training" class="max-w-full object-contain" />
       </div>
     </div>
 </div>
 </Transition>
 
 </template>
-
-
 
 <style scoped>
 

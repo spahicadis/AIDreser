@@ -3,11 +3,18 @@ import { onMounted, ref } from 'vue';
 import CommandCardComponent from '@/components/CommandCardComponent.vue';
 import { useCommandsStore } from '@/stores/commandsStore';
 import { getSingleComand } from '../../services/commandsAPI';
+import { image_visualizer } from '../../services/geminiAPI';
 import CommandCardModal from '@/components/CommandCardModal.vue';
+import AIResponseModal from '@/components/AIResponseModal.vue';
 const commandsStore = useCommandsStore()
 const openModal = ref(false)
 const contentModal = ref(null);
 const isContentLoading = ref(true)
+
+//const openAIModal = ref(false)
+//const isAIResponding = ref(true)
+//const AIResponse = ref("")
+
 
 
 const handleModalContent = async(id) => {
@@ -35,6 +42,19 @@ const handleVisibilityOfModal = async(e) => {
     
   }
   openModal.value = e.modalVisibility
+
+}
+
+
+const handleAskTrainerAction = async (e) => {
+  
+  try {
+      const response = await image_visualizer(e.img, e.question);
+      console.log(response)
+  } catch (error) {
+      throw new Error(error.message)    
+  }
+  
 
 }
 
@@ -82,7 +102,9 @@ onMounted(async() => {
   :video-for-command="isContentLoading ? undefined : contentModal.modalIframe"
   :text-for-command="isContentLoading ? undefined : contentModal.modalText"
   :steps-for-command="isContentLoading ? undefined : contentModal.modalSteps"
+  :command-question="isContentLoading ? undefined : contentModal.commandQuestion"
   @handle-modal="handleVisibilityOfModal"
+  @send-images="handleAskTrainerAction"
   />
 </div>
   
