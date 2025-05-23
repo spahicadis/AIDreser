@@ -39,7 +39,7 @@ const props = defineProps({
 })
 
 const file = ref(null)
-
+const uploaded_image = ref(null)
 
 
 watch(() => props.isOpen, (visibility) => {
@@ -98,7 +98,8 @@ const handleUploadFile = async(e) => {
            <button class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2" @click="$emit('sendImages', {img: file, question: commandQuestion})">POŠALJI TRENERU</button>
           </div>        
       </div>
-      <div v-if="uploaded_image" class="w-full h-auto flex flex-col gap-3">
+      <div v-if="uploaded_image
+      " class="w-full h-auto flex flex-col gap-3">
         <h2 class="font-semibold">Slika sa treninga</h2>
         <img :src="uploaded_image" alt="Image from the training" class="max-w-full object-contain" />
       </div>

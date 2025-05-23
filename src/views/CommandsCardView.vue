@@ -11,9 +11,9 @@ const openModal = ref(false)
 const contentModal = ref(null);
 const isContentLoading = ref(true)
 
-//const openAIModal = ref(false)
-//const isAIResponding = ref(true)
-//const AIResponse = ref("")
+const openAIModal = ref(false)
+const isAIResponding = ref(true)
+const AIResponse = ref("")
 
 
 
@@ -47,14 +47,17 @@ const handleVisibilityOfModal = async(e) => {
 
 
 const handleAskTrainerAction = async (e) => {
-  
+  openModal.value = false;
+  openAIModal.value = true;
   try {
       const response = await image_visualizer(e.img, e.question);
-      console.log(response)
+      AIResponse.value = response;
   } catch (error) {
       throw new Error(error.message)    
   }
-  
+  finally {
+    isAIResponding.value = false;
+  }
 
 }
 
@@ -105,6 +108,12 @@ onMounted(async() => {
   :command-question="isContentLoading ? undefined : contentModal.commandQuestion"
   @handle-modal="handleVisibilityOfModal"
   @send-images="handleAskTrainerAction"
+  />
+  <AIResponseModal
+  :is-open="openAIModal"
+  :is-loading="isAIResponding"
+  :-a-i-response="AIResponse ? AIResponse : undefined"
+  
   />
 </div>
   

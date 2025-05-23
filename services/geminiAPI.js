@@ -32,6 +32,6 @@ const result = await ai.models.generateContent({
     { text: prompt}
   ],
 })
-console.log(result.text)
+return result.text
 
 }

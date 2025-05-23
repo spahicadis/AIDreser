@@ -14,8 +14,8 @@ const props = defineProps({
   },
 
   AIResponse: {
-    type: [String, undefined, null],
-    required: true
+    type: [String, undefined],
+    required: false
   }
 
 

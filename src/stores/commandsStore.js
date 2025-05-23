@@ -2,8 +2,6 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { getAllCommands } from "../../services/commandsAPI";
 
-
-
 export const useCommandsStore = defineStore('commandsStore', () => {
 
   const commandsData = ref(null)
