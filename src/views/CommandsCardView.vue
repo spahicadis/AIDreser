@@ -1,17 +1,18 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import CommandCardComponent from '@/components/CommandCardComponent.vue';
 import { useCommandsStore } from '@/stores/commandsStore';
 import { getSingleComand } from '../../services/commandsAPI';
-import { image_visualizer } from '../../services/geminiAPI';
 import CommandCardModal from '@/components/CommandCardModal.vue';
 import AIResponseModal from '@/components/AIResponseModal.vue';
-import { updateDogDocumentData } from '../../services/dogsAPI';
 import { useProfileStore } from '@/stores/profileStore';
+import { reviewCompletedCommand } from '../../services/dogsAPI';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 const profileStore = useProfileStore();
-
-
 const commandsStore = useCommandsStore()
+
 //Command modal
 const openModal = ref(false)
 const contentModal = ref(null);
@@ -23,6 +24,57 @@ const isAIResponding = ref(true)
 const AIResponse = ref("")
 
 
+
+onMounted(async() => {
+
+  try {
+
+    await commandsStore.getCommandsData()
+    console.log(commandsStore.commandsData)
+
+  } catch(error) {
+    throw new Error(error.message)
+  }
+
+})
+
+
+const handleAskTrainerAction = async (e) => {
+  openModal.value = false;
+  openAIModal.value = true;
+
+  try {
+
+      const response = await reviewCompletedCommand(profileStore.profileData.uid, e, profileStore.profileData.dog.levelNumber, profileStore.profileData.dog.commandsFinished)
+
+      if(response.signal == true) {
+        toast.success("Uspješno položena naredba.", {
+          position: "top-center",
+          autoClose: 2000
+        })
+      }
+      else if(response.signal == false) {
+        toast.error("Nažalost pas nije još naučio naredbu.", {
+          position: "top-center",
+          autoClose: 2000
+        })
+      }
+      
+      AIResponse.value = response.text
+
+
+            
+
+  } catch (error) {
+
+      throw new Error(error.message)    
+  }
+  finally {
+    
+    isAIResponding.value = false;
+  }
+
+}
 
 const handleModalContent = async(id) => {
   try {
@@ -54,45 +106,15 @@ const handleVisibilityOfModal = async(e) => {
 
 const handleVisibilityOAIModal = (e) => {
   openAIModal.value = e
+  isAIResponding.value = true;
+  AIResponse.value = "";
 }
 
 
-const handleAskTrainerAction = async (e) => {
-  openModal.value = false;
-  openAIModal.value = true;
-  try {
-      const response = await image_visualizer(e.img, e.question);
-      AIResponse.value = response;
-
-      if(response === "yes") {
-        const currentLevel = profileStore.profileData.dog.levelNumber
-        const commandFinished = profileStore.profileData.dog.commandsFinished
-
-        await updateDogDocumentData(profileStore.profileData.uid, "levelNumber", currentLevel + 1)
-        await updateDogDocumentData(profileStore.profileData.uid, "commandsFinished", commandFinished + 1)
-      }
-
-  } catch (error) {
-      throw new Error(error.message)    
+watch([openModal, openAIModal], () => {
+  if(openModal.value === true || openAIModal.value === true) {
+    document.body.classList.add('no-scroll')
   }
-  finally {
-    isAIResponding.value = false;
-  }
-
-}
-
-
-onMounted(async() => {
-
-  try {
-
-    await commandsStore.getCommandsData()
-    console.log(commandsStore.commandsData)
-
-  } catch(error) {
-    throw new Error(error.message)
-  }
-
 })
 
 
@@ -140,3 +162,14 @@ onMounted(async() => {
   
 
 </template>
+
+
+<style scoped>
+
+.no-scroll {
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
+}
+
+</style>

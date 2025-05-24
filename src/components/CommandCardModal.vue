@@ -1,9 +1,7 @@
 <script setup>
-import { ref, watch, useTemplateRef, nextTick } from "vue";
+import { ref, defineEmits, useTemplateRef, nextTick } from "vue";
 import closeicon from "../assets/modalCloseIcon.svg"
 import CommandStepCard from "./CommandStepCard.vue";
-
-
 
 const props = defineProps({
   isOpen: {
@@ -39,19 +37,13 @@ const props = defineProps({
   //Kasnije ostalo za prop drilling mali. Emmits?
 })
 
+const emits = defineEmits(["handleModal", "sendImages"]);
+
+
 const file = ref(null)
 const preview = ref(null)
 const imageView = useTemplateRef('image-preview')
 const isUploaded = ref(false)
-
-
-watch(() => props.isOpen, (visibility) => {
-  if(visibility) {
-    document.body.classList.add('no-scroll')
-  } else {
-    document.body.classList.remove('no-scroll')
-  }
-})
 
 
 const handleUploadFile = async(e) => {
@@ -68,9 +60,27 @@ const handleUploadFile = async(e) => {
    //uploaded_image.value = await cloundinaryUplodImage(file, "training-photos");
  }
 
- 
+
+const handleCloseModal = () => {
+
+  emits("handleModal", false)
+
+  file.value = null;
+  preview.value = null;
+  isUploaded.value = false;
+
+}
 
 
+const handleSendImages = () => {
+
+  emits("sendImages", {img: file.value, question: props.commandQuestion})
+
+  file.value = null;
+  preview.value = null;
+  isUploaded.value = false;
+
+}
 
 
 
@@ -86,7 +96,7 @@ const handleUploadFile = async(e) => {
     <div class="relative bg-white rounded-md shadow-md p-6 z-50 md:w-full max-w-2xl h-auto max-h-[80vh] overflow-y-auto flex flex-col gap-5">
       <div class="w-full h-fit flex justify-between items-center">
           <h3 class="text-lg font-semibold">Naziv: {{  nameOfCommand }}</h3>
-          <img :src="closeicon" class="w-8 h-8 cursor-pointer" @click="$emit('handleModal', false)"/>
+          <img :src="closeicon" class="w-8 h-8 cursor-pointer" @click="handleCloseModal"/>
       </div>
       <div class="w-full flex flex-col gap-1">
         <h3 class="text-md font-semibold">Edukacijski video</h3>
@@ -105,7 +115,7 @@ const handleUploadFile = async(e) => {
           <div class="w-full flex items-center justify-center gap-5">
            <label for="camera" class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2">USLIKAJ</label>
             <input type="file" capture="enviroment" accept="image/*" class="opacity-0 w-0 h-0 absolute" id="camera" @change="handleUploadFile"/>
-           <button class="text-white rounded-xl font-semibold p-2" :class="isUploaded ? 'bg-[#006FEE] cursor-pointer' : 'opacity-50 cursor-not-allowed bg-[#006FEE]'"  @click="$emit('sendImages', {img: file, question: commandQuestion})">POŠALJI TRENERU</button>
+           <button class="text-white rounded-xl font-semibold p-2" :class="isUploaded ? 'bg-[#006FEE] cursor-pointer' : 'opacity-50 cursor-not-allowed bg-[#006FEE]'"  @click="handleSendImages">POŠALJI TRENERU</button>
           </div>        
       </div>
       <div v-if="preview" class="w-full h-auto flex flex-col gap-3">
@@ -146,11 +156,6 @@ const handleUploadFile = async(e) => {
 
 .modal-animation-leave-active {
   transition: all 200ms ease-out
-}
-
-
-.no-scroll {
-  overflow: hidden;
 }
 
 </style>
