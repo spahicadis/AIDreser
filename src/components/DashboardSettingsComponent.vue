@@ -4,21 +4,31 @@ import { updateDogDocumentData } from '../../services/dogsAPI';
 import { useProfileStore } from '@/stores/profileStore';
 import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from 'vue3-select-component';
+
+const profileStore = useProfileStore()
+
 const option1 = ref("")
 const option2 = ref("")
-const profileStore = useProfileStore()
+
 const newData = ref("")
 
-
-const constDataForEdit = reactive([])
 
 //Dynamic data based on choice
 
 
-
 const handleUpdateDogDocumentData = async() => {
   try {
-      await updateDogDocumentData(profileStore.profileData.uid , "name", newData.value)
+
+    if(option1.value == 'dog') {
+      await updateDogDocumentData(profileStore.profileData.uid , option2.value, newData.value)
+    }
+    else {
+      alert("Nije jos implementirano za vlasnika bit ce")
+    }
+    
+    option1.value = "";
+    option2.value = "";
+    newData.value = "";  
     
   } catch (error) {
     throw new Error(error.message)
@@ -50,29 +60,39 @@ const handleUpdateDogDocumentData = async() => {
   placeholder="Vrsta podataka"
   :should-autofocus-option="false"
   :options="[
-    {label: 'Podaci vlasnika', value: 'user'},
     {label: 'Podaci psa', value: 'dog'},
+    {label: 'Podaci vlasnika', value: 'user'},
   ]"
-  />
+
+  />  
 </div>
 
-<div v-if="option1">
-<div class="w-fit h-fit flex flex-col gap-4">
-  <label class="text-md">Odaberite podatak za uređivanje</label>
-  <VueSelect
-  v-model="option2" 
-  placeholder="Vrsta podataka"
+<div v-if="option1" class="w-fit h-fit flex flex-col gap-3">
+
+  <VueSelect 
+  v-model="option2"
+  placeholder="Odaberite podatak"
   :should-autofocus-option="false"
-  :options="[
-    {label: 'Ime', value: 'name'},
-  ]"
-  />
+  :options="option1 === 'user' ? [{
+  label: 'Ime', value: 'name'
+  },
+  {
+    label: 'Prezime', value: 'surname'
+  },
+  {
+    label: 'Lozinka', value: 'password'
+  }
+  ] : [{
+    label: 'Ime', value: 'name'
+  }]"/>
 </div>
-<div v-if="option2">
-  <input type="text" class="border" v-model="newData"> 
+
+<div v-if="option2" class="w-fit h-fit flex flex-col gap-3">
+
+  <input class="border border-[#C3CCD6] h-[40px] rounded-md pl-3" placeholder="Novi podatak" v-model="newData"/>
+  <button class="w-[343px] h-[48px] bg-[#006FEE] text-white rounded-[14px] mt-13 cursor-pointer" @click="handleUpdateDogDocumentData">Ažuriraj izmjene</button>
 </div>
-<button @click="handleUpdateDogDocumentData">Azurirajte podatak</button>
-</div>
+
 </div>
 
 </template>
