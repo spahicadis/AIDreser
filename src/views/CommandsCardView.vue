@@ -10,6 +10,7 @@ import { reviewCompletedCommand } from '../../services/dogsAPI';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+
 const profileStore = useProfileStore();
 const commandsStore = useCommandsStore()
 
@@ -111,10 +112,17 @@ const handleVisibilityOAIModal = (e) => {
 }
 
 
-watch([openModal, openAIModal], () => {
-  if(openModal.value === true || openAIModal.value === true) {
-    document.body.classList.add('no-scroll')
-  }
+watch(openModal, (newValue) => {
+ if(newValue) {
+  document.body.style.overflow = "hidden"
+  document.body.style.position = "fixed"
+  document.body.style.width = "100%"
+ }
+ if(!newValue) {
+  document.body.style.overflow = "visible"
+  document.body.style.position = "static"
+  document.body.style.width = "100%"
+ }
 })
 
 
@@ -168,8 +176,6 @@ watch([openModal, openAIModal], () => {
 
 .no-scroll {
   overflow: hidden;
-  width: 100%;
-  position: fixed;
 }
 
 </style>

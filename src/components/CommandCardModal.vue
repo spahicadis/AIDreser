@@ -93,7 +93,7 @@ const handleSendImages = () => {
 <Transition name="modal-animation">
 <div v-show="isOpen" class="fixed inset-0 flex justify-center items-center z-50">
   <div class="absolute inset-0 bg-black opacity-50 backdrop-blur-sm"></div>  
-    <div class="relative bg-white rounded-md shadow-md p-6 z-50 md:w-full max-w-2xl h-auto max-h-[80vh] overflow-y-auto flex flex-col gap-5">
+    <div class="relative bg-white rounded-md shadow-md p-6 z-50 md:w-full max-w-2xl h-auto max-h-[80vh] overflow-y-auto flex flex-col gap-5 mx-3">
       <div class="w-full h-fit flex justify-between items-center">
           <h3 class="text-lg font-semibold">Naziv: {{  nameOfCommand }}</h3>
           <img :src="closeicon" class="w-8 h-8 cursor-pointer" @click="handleCloseModal"/>

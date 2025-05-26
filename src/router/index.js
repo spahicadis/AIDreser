@@ -12,12 +12,12 @@ const router = createRouter({
     {
       path: "/onboarding",
       component: () => import("@/views/OnBoardingView.vue"),
-      name: "Onboarding"
+      name: "Onboarding",
     },
     {
       path: "/register",
       component: () => import("@/views/RegistrationView.vue"),
-      name: "Register"
+      name: "Register",
     },
     {
       path: "/login",
@@ -32,12 +32,17 @@ const router = createRouter({
         {
           path: "commands",
           component: () => import("@/views/DashboardCommandsView.vue"),
-          name: "Commands"
+          name: "Commands",
+        },
+        {
+          path: "ask-trainer",
+          component: () => import("@/views/DashboardAskTrainerView.vue"),
+          name: "Ask trainer",
         },
         {
           path: "settings",
           component: () => import("@/views/DashboardSettingsView.vue"),
-          name: "Settings"
+          name: "Settings",
         }
       ]
     },

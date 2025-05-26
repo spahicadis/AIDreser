@@ -25,7 +25,7 @@ const result = await ai.models.generateContent({
         data: imageBase64,
       },
     },
-    { text: prompt + "You are the best dog trainer in the world. Please answer the question about the dog in the picture. If the dog executes the command well in the answer to the first word, put Yes and then the praise text. If the dog does not perform the command well, then write No for the first word and the rest of the text advice on how to do better, also if it does not perform the command well, write below, if you do not manage with this command, feel free to contact me in the Ask the Trainer section. IMPORTAN let the all text be in Croatian(dont mix english and croatina)."}
+    { text: prompt + "You are the best dog trainer in the world. Please answer the question about the dog in the picture. If the dog executes the command well in the answer to the first word, put Yes and then the praise text. If the dog does not perform the command well, then write No for the first word and the rest of the text advice on how to do better, also if it does not perform the command well, write below, if you do not manage with this command, feel free to contact me in the Ask the Trainer section. IMPORTAN let the all text be in Croatian(dont mix english and croatina). IMPORTAN dont answer with english words like YES and NO"}
   ],
 })
 return result.text
