@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits, useTemplateRef, nextTick } from "vue";
+import { ref, useTemplateRef, nextTick } from "vue";
 import closeicon from "../assets/modalCloseIcon.svg"
 import CommandStepCard from "./CommandStepCard.vue";
 
