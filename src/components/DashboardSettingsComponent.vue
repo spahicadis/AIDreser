@@ -1,15 +1,19 @@
 <script setup>
 import {ref} from 'vue'
+import { useRouter } from 'vue-router';
 import { updateDogDocumentData } from '../../services/dogsAPI';
 import { updateUserDocumentData } from '../../services/usersAPI';
 import { useProfileStore } from '@/stores/profileStore';
 import { cloundinaryUplodImage } from '../../services/cloudinaryAPI';
+import { deleteDogDocument } from '../../services/dogsAPI';
+import { deleteUserDocument } from '../../services/usersAPI';
 import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from 'vue3-select-component';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-
+import { auth } from '../../services/firebase';
 const profileStore = useProfileStore()
+const router = useRouter()
 
 const option1 = ref("")
 const option2 = ref("")
@@ -43,6 +47,22 @@ const handleFileUpload = async(e) => {
   const file = e.target.files[0]
   const img_url = await cloundinaryUplodImage(file)
   newData.value = img_url
+}
+
+
+const handleDelete = async() => {
+  try {
+    await Promise.all([
+      deleteUserDocument(profileStore.profileData.uid),
+      deleteDogDocument(profileStore.profileData.uid)
+    ])
+    let user = auth.currentUser
+    user?.delete()
+    router.push('/onboarding')
+
+  } catch (error) {
+    throw new Error(error.message)
+  }
 }
 
 
@@ -116,8 +136,9 @@ const handleFileUpload = async(e) => {
     <input v-if="option2==='image'" type="file" id="image-upload" class="opacity-0 h-0 w-0 absolute" @change="handleFileUpload">
   </div>
 
-  <div class="w-full">
+  <div class="w-full flex flex-col gap-3 items-start">
     <button class="bg-[#006FEE] w-full not-even:h-[48px] rounded-lg text-white font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"  @click="handleUpdateDogDocumentData"  :disabled="!newData">Spremi</button>
+    <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer" @click="handleDelete">Obriši račun</button>
   </div>
 
 </div>

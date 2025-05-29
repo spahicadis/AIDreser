@@ -1,5 +1,5 @@
 import { db } from "./firebase";
-import { doc, setDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot } from "firebase/firestore";
 import { image_visualizer } from "./geminiAPI";
 
 //Create document in dogs collection. Document will have data from the registration form. Document will hold same uid which user get in authentication
@@ -46,6 +46,16 @@ export const updateDogDocumentData = async(uid, data, newData) => {
   } catch (error) {
     throw new Error(error.message)    
   }  
+}
+
+//Delete document
+
+export const deleteDogDocument = async(uid) => {
+  try {
+    await deleteDoc(doc(db, "dogs", uid))
+  } catch (error) {
+    throw new Error(error.message)
+  }
 }
 
 //One of the most important functions in the application, upon completion of the command, the user sends images to the trainer, the AI ​​processes them based on the response, the rest of the application's logic goes

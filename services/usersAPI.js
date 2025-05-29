@@ -1,7 +1,8 @@
 import { db } from "./firebase";
-import { doc, setDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot } from "firebase/firestore";
 import { auth } from "./firebase";
 import { updatePassword } from "firebase/auth";
+
 
 //Create user document in collection whit others data from form after registration. Document will hold same uid which user get in authentication
 export const createUserDocumentOnRegister = async (user, uid) => {
@@ -32,7 +33,7 @@ export const getUserDocumentData = async(uid) => {
 
 }
 
-
+//Update data
 export const updateUserDocumentData = async(uid, data, newData) => {
 
   try {
@@ -54,6 +55,17 @@ export const updateUserDocumentData = async(uid, data, newData) => {
   } catch (error) {
     throw new Error(error.message)
   }
+
+}
+
+//Delete document
+export const deleteUserDocument = async(uid) => {
+
+try {
+  await deleteDoc(doc(db, "users", uid))
+} catch (error) {
+  throw new Error(error.message)
+}
 
 }
 
