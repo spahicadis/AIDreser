@@ -31,7 +31,6 @@ onMounted(async() => {
   try {
 
     await commandsStore.getCommandsData()
-    console.log(commandsStore.commandsData)
 
   } catch(error) {
     throw new Error(error.message)

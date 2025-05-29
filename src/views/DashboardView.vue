@@ -2,10 +2,11 @@
 import {onMounted, onUnmounted} from 'vue'
 import DashboardSidebar from '@/components/DashboardSidebar.vue';
 import { useProfileStore } from '@/stores/profileStore';
-import { getAllCommands } from '../../services/commandsAPI';
+import { getRealtimeUserDocumentData } from '../../services/usersAPI';
 import { getRealtimeDogDocumentData } from '../../services/dogsAPI';
 const profileStore = useProfileStore();
-let unsubscribe = null;
+let unsubscribe1 = null;
+let unsubscribe2 = null;
 
 onMounted(async() => {
   try {
@@ -14,7 +15,11 @@ onMounted(async() => {
     throw new Error(error.messsage)
   }
 
-  unsubscribe = getRealtimeDogDocumentData(profileStore.profileData.uid, (data) => {
+  unsubscribe1 = getRealtimeUserDocumentData(profileStore.profileData.uid, (data) => {
+    profileStore.profileData.user = {...data}
+  })
+
+  unsubscribe2 = getRealtimeDogDocumentData(profileStore.profileData.uid, (data) => {
     profileStore.profileData.dog = {...data}//Inline callback, koristimo spread operator kako bi kopirali nove podatke u novi objekt
   })
 
@@ -22,8 +27,13 @@ onMounted(async() => {
 
 //Detachamo listener na unmountu
 onUnmounted(() => {
-  if(unsubscribe) {
-    unsubscribe()
+
+  if(unsubscribe1) {
+    unsubscribe1()
+  }
+
+  if(unsubscribe2) {
+    unsubscribe2()
   }
 })
 </script>

@@ -13,9 +13,10 @@ const route = useRoute()
 const router = useRouter()
 const isMenuOpen = ref(false)
 
+
+
 const handleToogleHamburger = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  console.log(isMenuOpen.value)
 }
 
 const handleSignOutAction = async() => {
@@ -34,6 +35,8 @@ const handleSignOutAction = async() => {
 
 }
 
+
+
 </script>
 
 <template>
@@ -44,8 +47,8 @@ const handleSignOutAction = async() => {
       <div v-if="profileStore.isLoading" class="animate-pulse">
         <div class="h-[68px] bg-gray-200 rounded-full dark:bg-gray-700 w-[68px]"></div>
       </div>
-      <div v-else>
-        <img :src="profileStore.profileData.dog.image" alt="Dog avatar image" class="rounded-full w-17 h-17"/>
+      <div v-else class="cursor-pointer">
+        <img :src="profileStore.profileData.dog.image" alt="Dog avatar image" class="rounded-full w-17 h-17 cursor-pointer"/>
       </div>
       <div v-if="profileStore.isLoading" class="animate-pulse">
         <div class="h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[176px]"></div>
@@ -92,7 +95,7 @@ const handleSignOutAction = async() => {
     <div class="h-[48px] bg-gray-200 rounded-full dark:bg-gray-700 w-[48px]"></div>
     <div class="h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[176px]"></div>
   </div>
-  <div class="flex items-center gap-3" v-else>
+  <div class="flex items-center gap-3 cursor-pointer" v-else >
   <img :src="profileStore.profileData.dog.image" class="rounded-full w-12 h-12" />
   <h1 class="text-md">Pozdrav {{ profileStore.profileData.user.name }} i {{ profileStore.profileData.dog.name }}</h1>
 </div>

@@ -1,5 +1,7 @@
 import { db } from "./firebase";
-import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc, onSnapshot } from "firebase/firestore";
+import { auth } from "./firebase";
+import { updatePassword } from "firebase/auth";
 
 //Create user document in collection whit others data from form after registration. Document will hold same uid which user get in authentication
 export const createUserDocumentOnRegister = async (user, uid) => {
@@ -28,4 +30,39 @@ export const getUserDocumentData = async(uid) => {
       return null
     }
 
+}
+
+
+export const updateUserDocumentData = async(uid, data, newData) => {
+
+  try {
+
+    if(data === 'password') {
+      await updatePassword(auth.currentUser, newData);
+    }
+
+    else {
+
+    const docRef = doc(db, "users", uid);
+
+    await updateDoc(docRef, {
+      [data] : newData,
+
+    }) 
+  }
+    
+  } catch (error) {
+    throw new Error(error.message)
+  }
+
+}
+
+
+
+//Get realtime updates
+export const getRealtimeUserDocumentData = (uid, callback) => {
+  const unsubscribe = onSnapshot(doc(db, "users", uid), (doc) => {
+    callback(doc.data());
+  })
+  return unsubscribe;
 }
