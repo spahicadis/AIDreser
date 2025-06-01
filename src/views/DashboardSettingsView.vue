@@ -7,11 +7,11 @@ import GeneralStatusComponent from '@/components/GeneralStatusComponent.vue';
 
 <template>
 
-<div class="w-full h-screen flex flex-col gap-5">
+<div class="w-full flex flex-col gap-5">
 <div class="">
 <GeneralStatusComponent/>
 </div>
-<div class="w-[100%] h-[100%]">
+<div class="">
 <DashboardSettingsComponent/>
 </div>
 </div>

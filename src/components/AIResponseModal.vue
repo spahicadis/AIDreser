@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 
 const props = defineProps({
 
@@ -32,7 +31,7 @@ const props = defineProps({
 <Transition name="modal-animation">
 <div v-if="isOpen" class="fixed inset-0 flex justify-center items-center z-49">
   <div class="absolute inset-0 bg-black opacity-50 backdrop-blur-sm"></div>
-  <div class="relative rounded-md shadow-md bg-white z-50 p-3 w-full max-w-md h-auto flex flex-col gap-3 mx-3">
+  <div class="relative rounded-md shadow-md bg-white z-50 p-3 w-full max-w-md max-h-[450px] overflow-y-auto flex flex-col gap-3 mx-3">
     <div class="w-full h-fit flex items-center justify-between">
       <h3 class="text-lg font-semibold">Odgovor trenera</h3>
     </div>

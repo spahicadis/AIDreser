@@ -72,7 +72,7 @@ const handleDelete = async() => {
 
 <template>
 
-<div class="w-full h-auto flex flex-col gap-3.5 border border-[#EEEEEE] shadow-sm rounded-lg p-4">
+<div class="w-full flex flex-col gap-3.5 border border-[#EEEEEE] shadow-sm rounded-lg p-4">
 <div class="w-full h-fit flex items-center gap-5">
   <img :src="infoIcon" alt="Info description">
   <h1 class="text-md">Postavke i podaci Vašeg računa</h1>
@@ -137,7 +137,7 @@ const handleDelete = async() => {
   </div>
 
   <div class="w-full flex flex-col gap-3 items-start">
-    <button class="bg-[#006FEE] w-full not-even:h-[48px] rounded-lg text-white font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"  @click="handleUpdateDogDocumentData"  :disabled="!newData">Spremi</button>
+    <button class="bg-[#006FEE] w-full h-[48px] rounded-lg text-white font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"  @click="handleUpdateDogDocumentData"  :disabled="!newData">Spremi</button>
     <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer" @click="handleDelete">Obriši račun</button>
   </div>
 

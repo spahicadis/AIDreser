@@ -1,7 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
+
 const ai = new GoogleGenAI({apiKey: import.meta.env.VITE_GEMINI_API_KEY})
 
+
+//Command review feature
 export const image_visualizer = async(image, prompt) => {
 
   const imageBase64 = await new Promise((resolve, reject) => {
@@ -41,4 +44,18 @@ const cleanJson = extractJsonFromCodeBlock(result.text)
 
 return JSON.parse(cleanJson)
 
+}
+
+
+//Ask trainer feature
+export const ask_trainer = async(command, question) => {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: [
+      { text: 
+      `You are the best dog trainer in the world. User asked a question about this: ${command}. The content of his question is ${question} IMPORTANT Reply on Croatian language, DONT USE MARKDOWN`
+      }
+    ]
+  })
+  return response.text
 }
