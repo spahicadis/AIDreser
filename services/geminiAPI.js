@@ -25,9 +25,20 @@ const result = await ai.models.generateContent({
         data: imageBase64,
       },
     },
-    { text: prompt + "You are the best dog trainer in the world. Please answer the question about the dog in the picture. If the dog executes the command well in the answer to the first word, put Yes and then the praise text. If the dog does not perform the command well, then write No for the first word and the rest of the text advice on how to do better, also if it does not perform the command well, write below, if you do not manage with this command, feel free to contact me in the Ask the Trainer section. IMPORTAN let the all text be in Croatian(dont mix english and croatina). IMPORTAN dont answer with english words like YES and NO"}
+    { text: prompt + "You are the best dog trainer in the world. Please answer the question about the dog in the picture. If the dog executes the command well in the answer to the first word, put Yes and then the praise text. If the dog does not perform the command well, then write No for the first word and the rest of the text advice on how to do better, also if it does not perform the command well, write below, if you do not manage with this command, feel free to contact me in the Ask the Trainer section. IMPORTAN let the all text be in Croatian(dont mix english and croatina). IMPORTAN dont answer with english words like YES and NO. Can you response with JSON object. Can you answer with a JSON object? Key status, rating, message. The status contains the value yes or no depending on whether the dog successfully executes the command. The rating contains a value from 1-5, if the dog executes the command perfectly, give it 5 or 4. The rest 3 or 2 or 1. The message contains text with this information for the user."}
   ],
 })
-return result.text
+
+function extractJsonFromCodeBlock(text) {
+  const match = text.match(/```(?:json)\s*([\s\S]*?)```/)//Koristimo regex za izvlacenje teksta(JSON) koji je unutar code blocka
+  if(match) { //Ako je match pronaden vraca samo taj sadrzaj unutar tj. cisti JSON string bez md/code blocka
+    return match[1]
+  }
+  return result.text
+}
+
+const cleanJson = extractJsonFromCodeBlock(result.text)
+
+return JSON.parse(cleanJson)
 
 }

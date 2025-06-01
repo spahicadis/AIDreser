@@ -10,6 +10,7 @@ export const createDogDocumentOnRegistration = async (dog, uid) => {
       level: "Početnik",
       commandsFinished: 0,
       levelNumber: 1,
+      wonTreats: 0,
     });
   } catch (err) {
     throw new Error(err.message);
@@ -62,33 +63,40 @@ export const deleteDogDocument = async(uid) => {
 export const reviewCompletedCommand = async(uid, commandData, currentLevel, currentCommandsFinished) => {
 
   try {
-    let signalForToast = false;    
-    const trainerResponse = await image_visualizer(commandData.img, commandData.question)
 
-    const checkResponse = trainerResponse.match(/\S+/)[0]
-    const normalizedResponse = checkResponse.toLowerCase()
+    let signalForToast = false;    
     
-    console.log(normalizedResponse)
+    const response = await image_visualizer(commandData.img, commandData.question)
+    console.log(response)
+    const normalizedResponse = response.status.toLowerCase()
+    
     
     if(normalizedResponse.includes("da")) {
       await updateDogDocumentData(uid, "levelNumber", currentLevel + 1)
       await updateDogDocumentData(uid, "commandsFinished", currentCommandsFinished + 1)
 
-      const checkNewLevel = await getDogDocumentData(uid);
+      const checkNewData = await getDogDocumentData(uid);
+      
 
-      if(checkNewLevel.levelNumber >= 5) {
+      if(checkNewData.levelNumber >= 5) {
         await updateDogDocumentData(uid, "level", "Srednja")
       }
       
-      if(checkNewLevel.levelNumber >=8 ) {
+      if(checkNewData.levelNumber >=8 ) {
         await updateDogDocumentData(uid, "level", "Napredni")
       }
 
+      if(response.rating === 4 || response.rating === 5) {
+        await updateDogDocumentData(uid, "wonTreats", checkNewData.wonTreats + 1)
+      }
+
+
+
       signalForToast = true
-      //TO DO: Mijenjanje razina psa na temelju levela i vidjeti za osovjene poslastice
+  
     }
 
-    return {signal: signalForToast, text: trainerResponse}
+    return {signal: signalForToast, text: response.message}
 
   } catch (error) {
     throw new Error(error.message) 
