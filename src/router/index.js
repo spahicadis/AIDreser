@@ -54,7 +54,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   await authStore.init() 
-  
+  console.log(authStore.currentUser)
   if (authStore.currentUser === null && to.name === "Dashboard") {
     toast.error("Molimo prijavite se kako bi imali pristup", {
       autoClose: false,

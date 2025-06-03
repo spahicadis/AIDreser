@@ -25,7 +25,6 @@ const isAIResponding = ref(true)
 const AIResponse = ref("")
 
 
-
 onMounted(async() => {
 
   try {
@@ -84,7 +83,9 @@ const handleModalContent = async(id) => {
     throw new Error(error.message)
   }
   finally {
-    isContentLoading.value = false
+    setTimeout(() => {
+      isContentLoading.value = false
+    }, 1000)
   }
 }
 
@@ -100,7 +101,11 @@ const handleVisibilityOfModal = async(e) => {
     }
     
   }
+  else {
   openModal.value = e.modalVisibility
+  isContentLoading.value = true;
+  contentModal.value = null;
+  }
 
 }
 
@@ -108,6 +113,8 @@ const handleVisibilityOAIModal = (e) => {
   openAIModal.value = e
   isAIResponding.value = true;
   AIResponse.value = "";
+  isContentLoading.value = true;
+  contentModal.value = null;
 }
 
 
@@ -144,6 +151,7 @@ watch(openModal, (newValue) => {
     :command-title="commandsStore.isLoading ? undefined : data.commandTitle"
     :command-difficulty="commandsStore.isLoading ? undefined : data.commandDifficulty"
     :command-level="commandsStore.isLoading ? undefined : data.commandLevel"
+    :is-card-loading="commandsStore.isLoading"
     @handle-modal="handleVisibilityOfModal"
     />
 
@@ -155,6 +163,7 @@ watch(openModal, (newValue) => {
   :text-for-command="isContentLoading ? undefined : contentModal.modalText"
   :steps-for-command="isContentLoading ? undefined : contentModal.modalSteps"
   :command-question="isContentLoading ? undefined : contentModal.commandQuestion"
+  :is-modal-loading="isContentLoading"
   @handle-modal="handleVisibilityOfModal"
   @send-images="handleAskTrainerAction"
   />

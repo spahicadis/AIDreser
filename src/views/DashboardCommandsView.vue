@@ -9,7 +9,7 @@ import CommandsCardView from './CommandsCardView.vue';
 <template>
 
 
-<div class="w-full h-screen flex flex-col gap-5">
+<div class="w-full flex flex-col gap-5">
 
 <div>
   <GeneralStatusComponent/>

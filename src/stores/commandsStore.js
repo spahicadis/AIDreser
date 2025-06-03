@@ -18,7 +18,10 @@ export const useCommandsStore = defineStore('commandsStore', () => {
 
     throw new Error(error.message)
   } finally {
-    isLoading.value = false
+    setTimeout(() => {
+      isLoading.value = false
+    }, 1000)
+    
   }
     
   }

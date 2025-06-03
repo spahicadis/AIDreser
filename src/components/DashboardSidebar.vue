@@ -45,13 +45,13 @@ const handleSignOutAction = async() => {
   <div class="w-full h-full flex flex-row md:flex-col md:gap-15 p-4">
     <div class="w-full h-1/13 flex flex-row gap-3.5 items-center">
       <div v-if="profileStore.isLoading" class="animate-pulse">
-        <div class="h-[68px] bg-gray-200 rounded-full dark:bg-gray-700 w-[68px]"></div>
+        <div class="h-[68px] bg-gray-200 rounded-full w-[68px]"></div>
       </div>
       <div v-else class="cursor-pointer">
         <img :src="profileStore.profileData.dog.image" alt="Dog avatar image" class="rounded-full w-17 h-17 cursor-pointer"/>
       </div>
       <div v-if="profileStore.isLoading" class="animate-pulse">
-        <div class="h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[176px]"></div>
+        <div class="h-[24px] bg-gray-200 rounded-full w-[176px]"></div>
       </div>
       <div v-else>
       <h1 class="text-[#757575] text-md">Pozdrav {{ profileStore.profileData.user.name }} i {{ profileStore.profileData.dog.name }}</h1>
@@ -71,7 +71,7 @@ const handleSignOutAction = async() => {
         to="/dashboard/ask-trainer"
         >
         <li class="w-full h-15 flex items-center p-3 gap-3" :class="route.path == '/dashboard/ask-trainer' ? 'bg-blue-200 rounded-md' : ''">
-          <img :src="askTrainer" alt="Home sidebar icon" class="w-9"/>
+          <img :src="askTrainer" alt="Home sidebar icon" class="w-7"/>
           <span>Pitaj trenera</span>
         </li>
       </RouterLink>
@@ -92,8 +92,8 @@ const handleSignOutAction = async() => {
 <div class="sticky top-0 w-full min-h-[60px] max-h-[60px] shadow-xl lg:hidden flex flex-row items-center justify-between border-[#EEEEEE] rounded-full p-5 z-49 bg-[#f6f9fc]">
   <div>
   <div class="flex items-center gap-3" v-if="profileStore.isLoading">
-    <div class="h-[48px] bg-gray-200 rounded-full dark:bg-gray-700 w-[48px]"></div>
-    <div class="h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[176px]"></div>
+    <div class="h-[48px] bg-gray-200 rounded-full w-[48px]"></div>
+    <div class="h-[24px] bg-gray-200 rounded-full w-[176px]"></div>
   </div>
   <div class="flex items-center gap-3 cursor-pointer" v-else >
   <img :src="profileStore.profileData.dog.image" class="rounded-full w-12 h-12" />

@@ -17,7 +17,7 @@ const profileStore = useProfileStore()
     <h3>Obavljeno naredbi</h3>
   </div>
   <div v-if="profileStore.isLoading" class="animate-pulse">
-    <div class="ml-8 h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[40px]"></div>
+    <div class="ml-8 h-[24px] bg-gray-200 rounded-full w-[40px]"></div>
   </div>
   <div v-else>
     <p class="pl-8 font-semibold">{{ profileStore.profileData.dog.commandsFinished }}/10</p>
@@ -29,7 +29,7 @@ const profileStore = useProfileStore()
     <h3>Razina</h3>
   </div>
   <div v-if="profileStore.isLoading" class="animate-pulse">
-    <div class="ml-8 h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[80px]"></div>
+    <div class="ml-8 h-[24px] bg-gray-200 rounded-full w-[80px]"></div>
   </div>
   <div v-else>
     <p class="pl-8 font-semibold">{{ profileStore.profileData.dog.level }}</p>
@@ -41,7 +41,7 @@ const profileStore = useProfileStore()
     <h3>Osvojeno poslastica</h3>
   </div>
   <div v-if="profileStore.isLoading" class="animate-pulse">
-    <div class="ml-8 h-[24px] bg-gray-200 rounded-full dark:bg-gray-700 w-[20px]"></div>
+    <div class="ml-8 h-[24px] bg-gray-200 rounded-full w-[20px]"></div>
   </div>
   <div v-else>
     <p class="pl-8 font-semibold">{{ profileStore.profileData.dog.wonTreats }}</p>
