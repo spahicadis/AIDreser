@@ -47,8 +47,8 @@ const handleSignOutAction = async() => {
       <div v-if="profileStore.isLoading" class="animate-pulse">
         <div class="h-[68px] bg-gray-200 rounded-full w-[68px]"></div>
       </div>
-      <div v-else class="cursor-pointer">
-        <img :src="profileStore.profileData.dog.image" alt="Dog avatar image" class="rounded-full w-17 h-17 cursor-pointer"/>
+      <div v-else class="">
+        <img :src="profileStore.profileData.dog.image" alt="Dog avatar image" class="rounded-full w-17 h-17"/>
       </div>
       <div v-if="profileStore.isLoading" class="animate-pulse">
         <div class="h-[24px] bg-gray-200 rounded-full w-[176px]"></div>
@@ -83,7 +83,7 @@ const handleSignOutAction = async() => {
       </RouterLink>
       </ul>
     </div>
-    <div class="w-full flex gap-3 items-center mt-auto cursor-pointer" @click="handleSignOutAction()">
+    <div class="w-full flex gap-3 items-center mt-auto" @click="handleSignOutAction()">
       <img :src="logoutIcon" alt="Logout sidebar icon"/>
       <span>Odjava</span>
     </div>
@@ -95,7 +95,7 @@ const handleSignOutAction = async() => {
     <div class="h-[48px] bg-gray-200 rounded-full w-[48px]"></div>
     <div class="h-[24px] bg-gray-200 rounded-full w-[176px]"></div>
   </div>
-  <div class="flex items-center gap-3 cursor-pointer" v-else >
+  <div class="flex items-center gap-3" v-else >
   <img :src="profileStore.profileData.dog.image" class="rounded-full w-12 h-12" />
   <h1 class="text-md">Pozdrav {{ profileStore.profileData.user.name }} i {{ profileStore.profileData.dog.name }}</h1>
 </div>

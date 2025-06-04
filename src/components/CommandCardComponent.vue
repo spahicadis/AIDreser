@@ -39,14 +39,14 @@ const props = defineProps({
 const profileStore = useProfileStore()
 const isDisabled = ref(false)
 
-watch(profileStore, () => {
-  if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber < props.commandLevel) {
-      isDisabled.value = true
-  }
-  else if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber <= props.commandLevel) {
-    isDisabled.value = false;
-  }
-}, {deep: true})
+// watch(profileStore, () => {
+//   if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber < props.commandLevel) {
+//       isDisabled.value = true
+//   }
+//   else if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber <= props.commandLevel) {
+//     isDisabled.value = false;
+//   }
+// }, {deep: true})
 
 
 

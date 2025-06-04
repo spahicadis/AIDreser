@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 import { toast } from "vue3-toastify";
 
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,6 +29,7 @@ const router = createRouter({
     {
       path: "/dashboard",
       component: () => import("@/views/DashboardView.vue"),
+      redirect: "/dashboard/commands",
       name: "Dashboard",
       children: [
         {
@@ -46,6 +49,10 @@ const router = createRouter({
         }
       ]
     },
+    {
+      path: "/:pathMatch(.*)*",
+      component: () => import("@/views/NotFound.vue")
+    }
   ],
 });
 
