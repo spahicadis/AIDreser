@@ -205,7 +205,7 @@ const handleRegistrationAction = async () => {
         <span class="text-xs">{{ uploadedFile }}</span>
       </div>
 
-      <div class="flex w-full justify-center items-center gap-5 mt-6 sm:mt-12">
+      <div class="flex w-full justify-center items-center gap-5 mt-2 sm:mt-12">
         <button class="h-[48px] w-1/2 text-red-700 border border-red-700 rounded-[14px] px-5 cursor-pointer"
           @click="handleActiveStep(1)">Korak natrag</button>
         <button

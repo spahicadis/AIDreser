@@ -3,15 +3,14 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { updateDogDocumentData } from '../../services/dogsAPI';
 import { updateUserDocumentData } from '../../services/usersAPI';
+import { handleDeleteAccount } from '../../services/authAPI';
 import { useProfileStore } from '@/stores/profileStore';
 import { cloundinaryUplodImage } from '../../services/cloudinaryAPI';
-import { deleteDogDocument } from '../../services/dogsAPI';
-import { deleteUserDocument } from '../../services/usersAPI';
 import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from 'vue3-select-component';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-import { auth } from '../../services/firebase';
+
 const profileStore = useProfileStore()
 const router = useRouter()
 
@@ -50,16 +49,18 @@ const handleFileUpload = async (e) => {
 }
 
 
-const handleDelete = async () => {
+const handleDeleteAction = async () => {
   try {
-    await Promise.all([
-      deleteUserDocument(profileStore.profileData.uid),
-      deleteDogDocument(profileStore.profileData.uid)
-    ])
-    let user = auth.currentUser
-    user?.delete()
-    router.push('/onboarding')
-
+    const response = await handleDeleteAccount(profileStore.profileData.uid)
+    if (response === 200) {
+      setTimeout(() => {
+        toast.success("Račun uspješno obrisan. Hvala na korištenju AIDresera.")
+      })
+      router.push('/onboarding')
+    }
+    else {
+      toast.error("Pogreška prilikom brisanja računa. Molimo ponovo se prijavite i pokušajte.")
+    }
   } catch (error) {
     throw new Error(error.message)
   }
@@ -135,7 +136,8 @@ const handleDelete = async () => {
         <button
           class="bg-[#006FEE] w-full h-[48px] rounded-lg text-white font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           @click="handleUpdateDogDocumentData" :disabled="!newData">Spremi</button>
-        <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer" @click="handleDelete">Obriši račun</button>
+        <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer" @click="handleDeleteAction()">Obriši
+          račun</button>
       </div>
 
     </div>
