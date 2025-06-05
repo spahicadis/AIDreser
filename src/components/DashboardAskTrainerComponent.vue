@@ -31,7 +31,7 @@ const handleAskTrainer = async() => {
 const handleCloseModal = (e) => {
   isModalOpen.value = e
   AI_response.value = null
-  isLoading.value = null
+  isLoading.value = true
 }
 
 

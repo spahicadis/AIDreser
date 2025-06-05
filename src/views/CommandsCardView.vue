@@ -11,8 +11,10 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 
-const profileStore = useProfileStore();
+const profileStore = useProfileStore()
 const commandsStore = useCommandsStore()
+
+
 
 //Command modal
 const openModal = ref(false)

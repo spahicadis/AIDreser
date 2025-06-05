@@ -1,53 +1,57 @@
 <script setup>
 import { useProfileStore } from '@/stores/profileStore';
-import { ref, watch } from 'vue'; 
+import { ref, watch, toRef } from 'vue'; 
 
 const props = defineProps({
 
   commandID: {
-    type: [String, undefined, null],
+    type: String,
     required: false,
   },
 
   commandImg: {
-    type: [String, undefined, null],
+    type: String,
     required: false,
   },
 
   commandTitle: {
-    type: [String, undefined, null],
+    type: String,
     required: false,
   },
 
   commandDifficulty: {
-    type: [String, undefined, null],
+    type: String,
     required: false,
   },
 
   commandLevel: {
-    type: [Number, undefined, null],
+    type: Number,
     required: false,
   },
 
   isCardLoading: {
     type: Boolean,
     required: false,
-  }
+  },
+
 
 })
 
 const profileStore = useProfileStore()
 const isDisabled = ref(false)
+const ready = ref(false)
 
-// watch(profileStore, () => {
-//   if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber < props.commandLevel) {
-//       isDisabled.value = true
-//   }
-//   else if(!profileStore.isLoading && profileStore.profileData.dog.levelNumber <= props.commandLevel) {
-//     isDisabled.value = false;
-//   }
-// }, {deep: true})
-
+watch([() => props.isCardLoading, () => profileStore], (val1, val2) => {
+  
+  console.log(val1, val2.isLoading)
+  
+  // if(val1 === false && val2.isLoading === false) {
+    // console.log('test')
+    // ready.value = true;
+    // isDisabled.value = ready && profileStore.profileData.dog.levelNumber < props.commandLevel
+    // console.log(isDisabled.value)
+  // }
+})
 
 
 

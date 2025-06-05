@@ -8,7 +8,7 @@ import OnBoardingComponent from '@/components/OnBoardingComponent.vue'
 
 
 <template>
-  <div class="h-screen flex items-center justify-center">
-    <OnBoardingComponent/>
+  <div class="w-full min-h-screen flex items-center justify-center px-3">
+    <OnBoardingComponent />
   </div>
 </template>

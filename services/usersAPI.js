@@ -60,15 +60,12 @@ export const updateUserDocumentData = async(uid, data, newData) => {
 
 //Delete document
 export const deleteUserDocument = async(uid) => {
-
 try {
   await deleteDoc(doc(db, "users", uid))
 } catch (error) {
   throw new Error(error.message)
 }
-
 }
-
 
 
 //Get realtime updates

@@ -7,7 +7,7 @@ import RegistrationComponent from '@/components/RegistrationComponent.vue';
 
 
 <template>
-  <div class="h-screen flex flex-col items-center justify-center gap-5">
-    <RegistrationComponent/>
+  <div class="w-full h-screen flex flex-col items-center justify-center gap-5 px-3">
+    <RegistrationComponent />
   </div>
 </template>

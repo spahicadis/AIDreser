@@ -53,7 +53,7 @@ export const ask_trainer = async(command, question) => {
     model: "gemini-2.0-flash",
     contents: [
       { text: 
-      `You are the best dog trainer in the world. User asked a question about this: ${command}. The content of his question is ${question} IMPORTANT Reply on Croatian language, DONT USE MARKDOWN`
+      `You are the best dog trainer in the world. The user asked a question about this command: ${command}. The content of the question is: ${question}. IMPORTANT: Reply in Croatian language. Provide a clear, simple, and concise answer in plain text. DO NOT USE MARKDOWN, bullet points, bold, italic, or any formatting. Answer in a friendly and professional tone, focusing on practical advice.`
       }
     ]
   })
