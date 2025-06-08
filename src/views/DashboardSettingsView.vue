@@ -7,13 +7,13 @@ import GeneralStatusComponent from '@/components/GeneralStatusComponent.vue';
 
 <template>
 
-<div class="w-full flex flex-col gap-5">
-<div class="">
-<GeneralStatusComponent/>
-</div>
-<div class="">
-<DashboardSettingsComponent/>
-</div>
-</div>
-  
+  <div class="w-full flex flex-col gap-5">
+    <div class="">
+      <GeneralStatusComponent />
+    </div>
+    <div class="">
+      <DashboardSettingsComponent />
+    </div>
+  </div>
+
 </template>

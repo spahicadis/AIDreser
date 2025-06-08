@@ -48,12 +48,12 @@ return JSON.parse(cleanJson)
 
 
 //Ask trainer feature
-export const ask_trainer = async(command, question) => {
+export const ask_trainer = async(obj) => {
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
     contents: [
       { text: 
-      `You are the best dog trainer in the world. The user asked a question about this command: ${command}. The content of the question is: ${question}. IMPORTANT: Reply in Croatian language. Provide a clear, simple, and concise answer in plain text. DO NOT USE MARKDOWN, bullet points, bold, italic, or any formatting. Answer in a friendly and professional tone, focusing on practical advice.`
+      `You are the best dog trainer in the world. The user asked a question about this command: ${obj.command}. The content of the question is: ${obj.question}. IMPORTANT: Reply in Croatian language. Provide a clear, simple, and concise answer in plain text. DO NOT USE MARKDOWN, bullet points, bold, italic, or any formatting. Answer in a friendly and professional tone, focusing on practical advice.`
       }
     ]
   })

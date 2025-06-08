@@ -14,14 +14,14 @@ import GeneralStatusComponent from '@/components/GeneralStatusComponent.vue';
 <template>
 
 
-<div class="w-full h-screnn flex flex-col gap-5">
-  <div>
-    <GeneralStatusComponent/>
+  <div class="w-full h-screnn flex flex-col gap-5">
+    <div>
+      <GeneralStatusComponent />
+    </div>
+    <div class="w-[100%] h-[100%]">
+      <DashboardAskTrainerComponent />
+    </div>
   </div>
-<div class="w-[100%] h-[100%]">
-  <DashboardAskTrainerComponent/>
-</div>
-</div>
 
 
 
