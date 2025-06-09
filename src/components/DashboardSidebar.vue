@@ -4,7 +4,7 @@ import { useProfileStore } from '@/stores/profileStore';
 import { handleUserSignOut } from '../../services/authAPI';
 import { useRoute, useRouter } from 'vue-router';
 import homeIcon from "../assets/homeIcon.svg"
-import askTrainer from "../assets/askTrainer.png"
+import askTrainer from "../assets/askTrainer.svg"
 import settingsIcon from "../assets/settingsIcon.svg"
 import logoutIcon from "../assets/log-out.svg"
 import hamburgerIcon from "../assets/hamburgerIcon.svg"
@@ -71,7 +71,7 @@ const handleSignOutAction = async () => {
           <RouterLink to="/dashboard/ask-trainer">
             <li class="w-full h-15 flex items-center p-3 gap-3"
               :class="route.path == '/dashboard/ask-trainer' ? 'bg-blue-200 rounded-md' : ''">
-              <img :src="askTrainer" alt="Home sidebar icon" class="w-7" />
+              <img :src="askTrainer" alt="Home sidebar icon" class="w-9.5" />
               <span>Pitaj trenera</span>
             </li>
           </RouterLink>
@@ -123,7 +123,7 @@ const handleSignOutAction = async () => {
         <RouterLink to="/dashboard/ask-trainer">
           <li class="w-full h-15 flex items-center p-3 gap-3"
             :class="route.path == '/dashboard/ask-trainer' ? 'bg-blue-200 rounded-md' : ''">
-            <img :src="askTrainer" alt="Home sidebar icon" class="w-9" />
+            <img :src="askTrainer" alt="Home sidebar icon" class="w-9.5" />
             <span>Pitaj trenera</span>
           </li>
         </RouterLink>

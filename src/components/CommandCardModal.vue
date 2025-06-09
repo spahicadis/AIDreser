@@ -158,11 +158,13 @@ const handleSendImages = () => {
           <div class="w-full flex items-center justify-center gap-5">
             <label for="camera"
               class="bg-[#006FEE] cursor-pointer text-white rounded-xl font-semibold p-2">USLIKAJ</label>
-            <input type="file" capture="enviroment" accept="image/*" class="opacity-0 w-0 h-0 absolute" id="camera"
+            <input type="file" accept="image/*" class="opacity-0 w-0 h-0 absolute" id="camera"
               @change="handleUploadFile" />
-            <button class="text-white rounded-xl font-semibold p-2"
-              :class="isUploaded ? 'bg-[#006FEE] cursor-pointer' : 'opacity-50 cursor-not-allowed bg-[#006FEE]'"
-              @click="handleSendImages">POŠALJI TRENERU</button>
+            <div>
+              <button class="text-white rounded-xl font-semibold p-2"
+                :class="isUploaded ? 'bg-[#006FEE] cursor-pointer' : 'opacity-50 cursor-not-allowed bg-[#006FEE]'"
+                @click="handleSendImages">POŠALJI TRENERU</button>
+            </div>
           </div>
         </div>
         <div v-if="preview" class="w-full h-auto flex flex-col gap-3">

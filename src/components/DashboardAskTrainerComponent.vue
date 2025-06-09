@@ -4,6 +4,8 @@ import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from "vue3-select-component";
 import { ask_trainer } from "../../services/geminiAPI";
 import AIResponseModal from "./AIResponseModal.vue";
+import { useCommandsStore } from "@/stores/commandsStore";
+const commandStore = useCommandsStore()
 
 const commandSelected = ref("")
 const userQuestion = ref("")
@@ -59,9 +61,17 @@ const handleCloseModal = (e) => {
       <label class="text-md">Odaberite o kojoj se naredbi radi</label>
       <VueSelect placeholder="Naziv naredbe" class="border-neutral-300 shadow-sm" :should-autofocus-option="false"
         :options="[
+          { label: 'Stoj', value: 'The question is about the command where the dog stands.' },
           { label: 'Sjedni', value: 'The question is related to the sit command.' },
           { label: 'Lezi', value: 'The question is related to the lie down command.' },
-          { label: 'Daj šapu', value: 'The question is related to the give paw command.' }
+          { label: 'Daj šapu', value: 'The question is related to the give paw command.' },
+          { label: 'Daj obje šape', value: 'The question is related to the give both paws command.' },
+          { label: 'Osmijeh', value: 'The question is related to the smile command' },
+          { label: 'Između nogu', value: 'The question is related to the between two legs command' },
+          { label: 'Okreni se na leđima', value: 'The question is related to the roll over command' },
+          { label: 'Mahni', value: 'The question is related to the wave with paw command' },
+          { label: 'Sakrij se', value: 'The question is related to the hide with paw over muzzle command' },
+
         ]" v-model="commandSelected" />
       <label class="text-md">Postavite pitanje</label>
       <textarea v-model="userQuestion" class="border border-neutral-300 shadow-sm rounded-md p-2 text-start"

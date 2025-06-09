@@ -35,8 +35,8 @@ const props = defineProps({
       </svg>
     </div>
 
-    <div v-else class="w-full h-[200px] overflow-hidden rounded-tl-md rounded-tr-md">
-      <img :src="stepImage" class="w-full h-full object-cover" loading="lazy" alt="Command step image" />
+    <div v-else class="w-full min-h-[auto] overflow-hidden rounded-tl-md rounded-tr-md">
+      <img :src="stepImage" class="w-full h-full object-cover object-center" loading="lazy" alt="Command step image" />
     </div>
 
 
