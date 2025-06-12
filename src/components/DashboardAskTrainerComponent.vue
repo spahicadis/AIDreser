@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, watch } from "vue";
 import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from "vue3-select-component";
 import { ask_trainer } from "../../services/geminiAPI";
@@ -12,6 +12,17 @@ const userQuestion = ref("")
 const isModalOpen = ref(false)
 const AI_response = ref(null)
 const isLoading = ref(true)
+const commandQuestion = ref([]);
+
+
+
+onMounted(async () => {
+  try {
+    await commandStore.getCommandsData();
+  } catch (error) {
+    throw new Error(error.message)
+  }
+})
 
 
 const handleAskTrainer = async () => {
@@ -43,6 +54,20 @@ const handleCloseModal = (e) => {
 }
 
 
+watch(() => commandStore.isLoading, (val) => {
+  if (!val) {
+    commandStore.commandsData.forEach((obj) => {
+      commandQuestion.value.push({
+        label: obj.commandTitle,
+        value: obj.askQuestion,
+      })
+    })
+  }
+})
+
+
+
+
 </script>
 
 
@@ -60,19 +85,7 @@ const handleCloseModal = (e) => {
     <div class="w-full max-w-[343px] flex flex-col gap-2">
       <label class="text-md">Odaberite o kojoj se naredbi radi</label>
       <VueSelect placeholder="Naziv naredbe" class="border-neutral-300 shadow-sm" :should-autofocus-option="false"
-        :options="[
-          { label: 'Stoj', value: 'The question is about the command where the dog stands.' },
-          { label: 'Sjedni', value: 'The question is related to the sit command.' },
-          { label: 'Lezi', value: 'The question is related to the lie down command.' },
-          { label: 'Daj šapu', value: 'The question is related to the give paw command.' },
-          { label: 'Daj obje šape', value: 'The question is related to the give both paws command.' },
-          { label: 'Osmijeh', value: 'The question is related to the smile command' },
-          { label: 'Između nogu', value: 'The question is related to the between two legs command' },
-          { label: 'Okreni se na leđima', value: 'The question is related to the roll over command' },
-          { label: 'Mahni', value: 'The question is related to the wave with paw command' },
-          { label: 'Sakrij se', value: 'The question is related to the hide with paw over muzzle command' },
-
-        ]" v-model="commandSelected" />
+        :options="commandQuestion" v-model="commandSelected" />
       <label class="text-md">Postavite pitanje</label>
       <textarea v-model="userQuestion" class="border border-neutral-300 shadow-sm rounded-md p-2 text-start"
         placeholder="Sadržaj Vašeg pitanja..."></textarea>

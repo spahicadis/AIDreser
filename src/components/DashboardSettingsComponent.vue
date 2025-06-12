@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router';
 import { updateDogDocumentData } from '../../services/dogsAPI';
 import { updateUserDocumentData } from '../../services/usersAPI';
@@ -17,6 +17,8 @@ const router = useRouter()
 const option1 = ref("")
 const option2 = ref("")
 const newData = ref("")
+const currentValue = ref("")
+const dangerModal = ref(false)
 
 
 const handleUpdateDogDocumentData = async () => {
@@ -38,6 +40,7 @@ const handleUpdateDogDocumentData = async () => {
     option1.value = "";
     option2.value = "";
     newData.value = "";
+    currentValue.value = "";
   }
 }
 
@@ -47,6 +50,21 @@ const handleFileUpload = async (e) => {
   const img_url = await cloundinaryUplodImage(file)
   newData.value = img_url
 }
+
+watch([option1, option2], () => {
+  if (option1.value && option2.value) {
+    const key1 = option1.value;
+    const key2 = option2.value;
+    currentValue.value = `Trenutna vrijednost: ${profileStore.profileData[key1][key2]}`;//Nije klasicna dot notacija za pristup vrijednostima jer su kljucevi u ovom slucaju dinamicki tj ovise o userovom selectu;
+
+  }
+})
+
+const handleDangerModal = (e) => {
+  dangerModal.value = e;
+}
+
+
 
 
 const handleDeleteAction = async () => {
@@ -123,8 +141,9 @@ const handleDeleteAction = async () => {
 
       <div class="w-full flex flex-col gap-2">
         <label class="text-md">Podatak</label>
-        <input class="h-[40px] rounded-md border-neutral-300 shadow-sm border-1 px-2" placeholder="Izmjenite podatak"
-          v-model="newData" v-if="option2 !== 'image'" />
+        <input class="h-[40px] rounded-md border-neutral-300 shadow-sm border-1 px-2"
+          :placeholder="currentValue ? currentValue : 'Izmjenite podatak'" v-model="newData"
+          v-if="option2 !== 'image'" />
         <label v-if="option2 === 'image'" for="image-upload"
           class="p-3 border-neutral-300 shadow-md rounded-md max-w-fit text-lg font-semibold cursor-pointer">Nova
           slika</label>
@@ -135,14 +154,59 @@ const handleDeleteAction = async () => {
       <div class="w-full flex flex-col gap-3 items-start">
         <button
           class="bg-[#006FEE] w-full h-[48px] rounded-lg text-white font-semibold cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-          @click="handleUpdateDogDocumentData" :disabled="!newData">Spremi</button>
-        <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer" @click="handleDeleteAction()">Obriši
-          račun</button>
+          @click="handleUpdateDogDocumentData()" :disabled="!newData">Spremi</button>
+        <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer" @click="handleDangerModal(true)">Akcija
+          brisanja računa</button>
       </div>
 
     </div>
-
-
   </div>
+  <Transition name="modal-animation">
+    <div v-if="dangerModal" class="fixed inset-0 flex items-center justify-center z-49">
+      <div class="absolute inset-0 bg-black opacity-50 backdrop-blur-sm"></div>
+      <div class="relative p-5 flex flex-col rounded-md bg-white w-full md:max-w-sm gap-3.5 mx-3 ">
+        <h3 class="font-semibold">Akcija brisanja</h3>
+        <p>Jeste li sigurni da želite obrisati račun?</p>
+        <div class="w-full flex justify-end items-center mt-3 gap-5">
+          <button class="p-2 bg-[#006FEE] opacity-85 rounded-md cursor-pointer text-white"
+            @click="handleDangerModal(false)">Odustani</button>
+          <button class="bg-red-500 p-2 rounded-md text-white cursor-pointer font-bold"
+            @click="handleDeleteAction()">Obriši</button>
+        </div>
+      </div>
+    </div>
+  </Transition>
+
+
 
 </template>
+
+<style scoped>
+.modal-animation-enter-from {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.modal-animation-enter-to {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.modal-animation-enter-active {
+  transition: all 300ms ease-out;
+}
+
+.modal-animation-leave-from {
+  opacity: 1;
+  transform: scale(1)
+}
+
+.modal-animation-leave-to {
+  opacity: 0;
+  transform: scale(0.95)
+}
+
+.modal-animation-leave-active {
+  transition: all 200ms ease-out
+}
+</style>

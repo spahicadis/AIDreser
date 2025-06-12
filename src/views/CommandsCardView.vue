@@ -1,20 +1,31 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import {
+  onMounted,
+  ref,
+  watch
+} from 'vue';
 import CommandCardComponent from '@/components/CommandCardComponent.vue';
-import { useCommandsStore } from '@/stores/commandsStore';
-import { getSingleComand } from '../../services/commandsAPI';
+import {
+  useCommandsStore
+} from '@/stores/commandsStore';
+import {
+  getSingleComand
+} from '../../services/commandsAPI';
 import CommandCardModal from '@/components/CommandCardModal.vue';
 import AIResponseModal from '@/components/AIResponseModal.vue';
-import { useProfileStore } from '@/stores/profileStore';
-import { reviewCompletedCommand } from '../../services/dogsAPI';
-import { toast } from 'vue3-toastify';
+import {
+  useProfileStore
+} from '@/stores/profileStore';
+import {
+  reviewCompletedCommand
+} from '../../services/dogsAPI';
+import {
+  toast
+} from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-
 
 const profileStore = useProfileStore()
 const commandsStore = useCommandsStore()
-
-
 
 //Command modal
 const openModal = ref(false)
@@ -25,7 +36,6 @@ const isContentLoading = ref(true)
 const openAIModal = ref(false)
 const isAIResponding = ref(true)
 const AIResponse = ref("")
-
 
 onMounted(async () => {
 
@@ -38,7 +48,6 @@ onMounted(async () => {
   }
 
 })
-
 
 const handleAskTrainerAction = async (e) => {
   openModal.value = false;
@@ -53,8 +62,7 @@ const handleAskTrainerAction = async (e) => {
         position: "top-center",
         autoClose: 2000
       })
-    }
-    else if (response.signal == false) {
+    } else if (response.signal == false) {
       toast.error("Nažalost pas nije još naučio naredbu.", {
         position: "top-center",
         autoClose: 2000
@@ -63,14 +71,10 @@ const handleAskTrainerAction = async (e) => {
 
     AIResponse.value = response.text
 
-
-
-
   } catch (error) {
 
     throw new Error(error.message)
-  }
-  finally {
+  } finally {
 
     isAIResponding.value = false;
   }
@@ -83,14 +87,12 @@ const handleModalContent = async (id) => {
     console.log(contentModal.value)
   } catch (error) {
     throw new Error(error.message)
-  }
-  finally {
+  } finally {
     setTimeout(() => {
       isContentLoading.value = false
     }, 1000)
   }
 }
-
 
 const handleVisibilityOfModal = async (e) => {
 
@@ -102,8 +104,7 @@ const handleVisibilityOfModal = async (e) => {
       throw new Error(error.message)
     }
 
-  }
-  else {
+  } else {
     openModal.value = e.modalVisibility
     isContentLoading.value = true;
     contentModal.value = null;
@@ -119,7 +120,6 @@ const handleVisibilityOfAIModal = (e) => {
   contentModal.value = null;
 }
 
-
 watch(openModal, (newValue) => {
   if (newValue) {
     document.body.style.overflow = "hidden"
@@ -132,16 +132,9 @@ watch(openModal, (newValue) => {
     document.body.style.width = "100%"
   }
 })
-
-
-
 </script>
 
-
 <template>
-
-
-
   <div class="h-full w-full flex flex-col gap-1.5">
     <h2 class="text-xl font-semibold">Naredbe</h2>
     <div
@@ -165,10 +158,7 @@ watch(openModal, (newValue) => {
     <AIResponseModal :is-open="openAIModal" :is-loading="isAIResponding"
       :-a-i-response="AIResponse ? AIResponse : undefined" @close="handleVisibilityOfAIModal" />
   </div>
-
-
 </template>
-
 
 <style scoped>
 .no-scroll {
