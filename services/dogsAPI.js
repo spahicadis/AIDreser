@@ -92,7 +92,7 @@ export const reviewCompletedCommand = async (
       const checkNewData = await getDogDocumentData(uid);
 
       //Ovdje sam zelio koristiti triggere/firestore functions, ali nemamo tu mogucnost jedino sa backenda.
-      //Prilikom update documenta provjerimo nove vrijednost tj. novi level nakon polozene naredbe i na temelju vrijednosti novog level azuriramo drugi atribut tj razinu na srednja ili napredni. Alternativa. Dodana provjera ako nema vec tu vrijednost tako da ne lupa po bazi bezveze
+      //Prilikom update documenta provjerimo nove vrijednost tj. novi level nakon polozene naredbe i na temelju vrijednosti novog level azuriramo drugi atribut tj razinu na srednja ili napredni. Ovo je alternativa. Dodana provjera ako nema vec tu vrijednost tako da ne lupa po bazi bezveze
       if (
         checkNewData.levelNumber >= 5 &&
         checkNewData.levelNumber < 8 &&
