@@ -15,14 +15,14 @@ Sučelje se sastoji od nekoliko sekcija:
 
 ### 📌 Glavne sekcije:
 
-- **Sekcija komande**  
+- **Sekcija naredbe**  
   Korisnik ima pristup svim naredbama i pregled statusa profila. Nakon izvršene naredbe, korisnik šalje fotografiju psa. AIDreser analizira sliku i daje povratnu informaciju je li pas uspješno izvršio naredbu.
 
 - **Sekcija pitaj trenera**  
-  Ako korisnik ima problema s naredbama ili želi dodatni sadržaj, može se obratiti AIDreseru za pomoć.
+  Ukoliko korisnik ima problem sa nekom od naredbi ili mu je potrebno više sadržaja ima mogućnost javiti se AIDreseru.
 
 - **Sekcija postavke**  
-  Korisnik može ažurirati osobne podatke i podatke psa, kao i izbrisati račun.
+  Korisnik ima mogućnost ažuriranja svojih podataka ili podataka psa. Kao i mogućnost brisanja računa.
 
 ---
 
