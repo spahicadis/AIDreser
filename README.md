@@ -9,7 +9,9 @@
 
 ## 📝 Kratki opis funkcionalnosti
 
-**AIDreser** je aplikacija koja vlasnicima pasa nudi centralizirani sustav za učenje osnovnih naredbi. Nakon registracije, korisnik dobiva pristup glavnim sekcijama aplikacije:
+Aplikacija AIDreser vlasnicima pasa nudi centralizirani sadržaj sa potrebnim informacijama i koracima kako da uspješno nauče svoga psa osnovne naredbe.
+Vlasnik psa će se registrati sa svojim podacima i podacima svoga psa, nakon čega će dobiti pristup sučelju aplikacije.
+Sučelje se sastoji od nekoliko sekcija:
 
 ### 📌 Glavne sekcije:
 
