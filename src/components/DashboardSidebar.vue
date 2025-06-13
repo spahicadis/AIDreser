@@ -111,7 +111,7 @@ const handleSignOutAction = async () => {
 
   </div>
   <Transition name="slide-animation">
-    <div v-if="isMenuOpen" class="fixed inset-0 backdrop-blur-xs">
+    <div v-if="isMenuOpen" class="fixed inset-0 backdrop-blur-xs lg:hidden">
       <ul class="z-30 fixed top-[60px] p-5 bg-white w-full">
         <RouterLink to="/dashboard/commands">
           <li class="w-full h-15 flex items-center p-3 gap-3"
