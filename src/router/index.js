@@ -17,7 +17,7 @@ const router = createRouter({
       name: "Onboarding",
     },
     {
-      path: "/register",
+      path: "/registration",
       component: () => import("@/views/RegistrationView.vue"),
       name: "Register",
     },
@@ -61,14 +61,17 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
   await authStore.init() 
-  console.log(authStore.currentUser)
-  if (authStore.currentUser === null && to.name === "Dashboard") {
-    toast.error("Molimo prijavite se kako bi imali pristup", {
-      autoClose: false,
-      pauseOnHover: true,
-      position: "top-right",
-    });
-    return next({ name: "Login" });
+  if ((authStore.currentUser === null && to.name === "Commands") || (authStore.currentUser === null && to.name === "Ask trainer") || ( authStore.currentUser === null && to.name === "Settings")) {
+    
+    setTimeout(() => {
+      toast.error("Molimo prijavite se kako bi imali pristup", {
+        autoClose: false,
+        pauseOnHover: true,
+        position: "top-right",
+      });
+    }, 100)
+  
+    return next({ name: "Onboarding" });
   }
   return next();
 });

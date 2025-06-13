@@ -13,7 +13,7 @@ import logo from '../assets/OnBoardingLogo.svg'
           class="mt-6 sm:mt-12 w-full sm:w-[212px] h-[48px] bg-[#006FEE] text-white rounded-[14px] cursor-pointer font-bold">Prijavi
           se</button></RouterLink>
       <span class="text-xs self-end">Nemate račun? <strong class="cursor-pointer">
-          <RouterLink to="/register">Kreirajte ga</RouterLink>
+          <RouterLink to="/registration">Kreirajte ga</RouterLink>
         </strong></span>
     </div>
   </div>

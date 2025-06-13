@@ -84,7 +84,7 @@ const handleSignOutAction = async () => {
           </RouterLink>
         </ul>
       </div>
-      <div class="w-full flex gap-3 items-center mt-auto" @click="handleSignOutAction()">
+      <div class="w-full flex gap-3 items-center mt-auto cursor-pointer" @click="handleSignOutAction()">
         <img :src="logoutIcon" alt="Logout sidebar icon" />
         <span>Odjava</span>
       </div>

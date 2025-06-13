@@ -63,7 +63,7 @@ watch(() => commandStore.isLoading, (val) => {
       })
     })
   }
-})
+}, { immediate: true })
 
 
 
