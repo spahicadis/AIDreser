@@ -1,6 +1,6 @@
 # AIDreser
 
-> Tim 291/24 AIDreser: Adis Spahić 
+> Tim 291/24 AIDreser: Adis Spahić -
 > Fakultet informatike u Puli – [fipu.unipu.hr](https://fipu.unipu.hr/)  
 > Kolegij: **Programsko inženjerstvo** – [ntankovic.unipu.hr/pi](http://ntankovic.unipu.hr/pi)  
 > Mentor: *doc. dr. sc. Nikola Tanković* – [ntankovic.unipu.hr](http://ntankovic.unipu.hr)
