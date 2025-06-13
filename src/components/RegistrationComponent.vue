@@ -5,7 +5,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { handleUserRegistration } from '../../services/authAPI.js';
 import iconhint from '../assets/IconHint.svg'
-import { cloundinaryUplodImage } from '../../services/cloudinaryAPI.js';
+import { cloundinaryUplodImage } from '../../services/CloudinaryAPI.js';
 import uploadIcon from '../assets/uploadIcon.svg'
 const router = useRouter();
 
