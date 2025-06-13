@@ -1,5 +1,5 @@
 <script setup>
-import { useProfileStore } from '@/stores/profileStore';
+import { useProfileStore } from '@/stores/profileStore.js';
 import listicon from "../assets/listIcon.svg"
 import levelsIcon from "../assets/levelsIcon.svg"
 import treatIcon from "../assets/treatIcon.svg"

@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue'
 import DashboardSidebar from '@/components/DashboardSidebar.vue';
-import { useProfileStore } from '@/stores/profileStore';
-import { getRealtimeUserDocumentData } from '../../services/usersAPI';
-import { getRealtimeDogDocumentData } from '../../services/dogsAPI';
+import { useProfileStore } from '@/stores/profileStore.js';
+import { getRealtimeUserDocumentData } from '../../services/usersAPI.js';
+import { getRealtimeDogDocumentData } from '../../services/dogsAPI.js';
 const profileStore = useProfileStore();
 let unsubscribe1 = null;
 let unsubscribe2 = null;

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
-import { useProfileStore } from '@/stores/profileStore';
-import { handleUserSignOut } from '../../services/authAPI';
+import { useProfileStore } from '@/stores/profileStore.js';
+import { handleUserSignOut } from '../../services/authAPI.js';
 import { useRoute, useRouter } from 'vue-router';
 import homeIcon from "../assets/homeIcon.svg"
 import askTrainer from "../assets/askTrainer.svg"

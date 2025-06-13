@@ -1,7 +1,7 @@
 <script setup>
 import {
   useProfileStore
-} from '@/stores/profileStore';
+} from '@/stores/profileStore.js';
 import {
   ref,
   watchEffect,

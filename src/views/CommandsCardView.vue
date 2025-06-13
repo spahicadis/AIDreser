@@ -7,18 +7,18 @@ import {
 import CommandCardComponent from '@/components/CommandCardComponent.vue';
 import {
   useCommandsStore
-} from '@/stores/commandsStore';
+} from '@/stores/commandsStore.js';
 import {
   getSingleComand
-} from '../../services/commandsAPI';
+} from '../../services/commandsAPI.js';
 import CommandCardModal from '@/components/CommandCardModal.vue';
 import AIResponseModal from '@/components/AIResponseModal.vue';
 import {
   useProfileStore
-} from '@/stores/profileStore';
+} from '@/stores/profileStore.js';
 import {
   reviewCompletedCommand
-} from '../../services/dogsAPI';
+} from '../../services/dogsAPI.js';
 import {
   toast
 } from 'vue3-toastify';

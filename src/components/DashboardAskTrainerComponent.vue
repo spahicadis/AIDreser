@@ -2,9 +2,9 @@
 import { ref, onMounted, watch } from "vue";
 import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from "vue3-select-component";
-import { ask_trainer } from "../../services/geminiAPI";
+import { ask_trainer } from "../../services/geminiAPI.js";
 import AIResponseModal from "./AIResponseModal.vue";
-import { useCommandsStore } from "@/stores/commandsStore";
+import { useCommandsStore } from "@/stores/commandsStore.js";
 const commandStore = useCommandsStore()
 
 const commandSelected = ref("")
