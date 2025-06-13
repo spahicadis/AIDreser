@@ -80,6 +80,7 @@ export const reviewCompletedCommand = async (
 
     const normalizedResponse = response.status.toLowerCase();
 
+    //Includes nije mozda najbolja opcija za provjeru, ali je fleksibilnija naspram drugih provjera jer mozda ce nekad model otic izvan opseg prompta pa response nece biti formatiran kako ocekujem
     if (normalizedResponse.includes("da")) {
       await updateDogDocumentData(uid, "levelNumber", currentLevel + 1);
       await updateDogDocumentData(
@@ -90,15 +91,21 @@ export const reviewCompletedCommand = async (
 
       const checkNewData = await getDogDocumentData(uid);
 
-      if (checkNewData.levelNumber >= 5) {
+      //Ovdje sam zelio koristiti triggere/firestore functions, ali nemamo tu mogucnost jedino sa backenda.
+      //Prilikom update documenta provjerimo nove vrijednost tj. novi level nakon polozene naredbe i na temelju vrijednosti novog level azuriramo drugi atribut tj razinu na srednja ili napredni. Alternativa. Dodana provjera ako nema vec tu vrijednost tako da ne lupa po bazi bezveze
+      if (
+        checkNewData.levelNumber >= 5 &&
+        checkNewData.levelNumber < 8 &&
+        checkNewData.level !== "Srednja"
+      ) {
         await updateDogDocumentData(uid, "level", "Srednja");
       }
 
-      if (checkNewData.levelNumber >= 8) {
+      if (checkNewData.levelNumber >= 8 && checkNewData.level !== "Napredni") {
         await updateDogDocumentData(uid, "level", "Napredni");
       }
 
-      if (response.rating === 4 || response.rating === 5) {
+      if (response.rating === 5) {
         await updateDogDocumentData(
           uid,
           "wonTreats",
