@@ -10,6 +10,7 @@ import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from 'vue3-select-component';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { auth } from '../../services/firebase';
 
 const profileStore = useProfileStore()
 const router = useRouter()
@@ -55,7 +56,11 @@ watch([option1, option2], () => {
   if (option1.value && option2.value) {
     const key1 = option1.value;
     const key2 = option2.value;
-    currentValue.value = `Trenutna vrijednost: ${profileStore.profileData[key1][key2]}`;//Nije klasicna dot notacija za pristup vrijednostima jer su kljucevi u ovom slucaju dinamicki tj ovise o userovom selectu;
+    if (key1 === 'user' && key2 === 'password') {
+      currentValue.value = `Trenutna vrijednost: xxxxxxxxxxx`;
+    }
+    else
+      currentValue.value = `Trenutna vrijednost: ${profileStore.profileData[key1][key2]}`;//Nije klasicna dot notacija za pristup vrijednostima jer su kljucevi u ovom slucaju dinamicki tj ovise o userovom selectu;
 
   }
 })

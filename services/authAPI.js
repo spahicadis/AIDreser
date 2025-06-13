@@ -3,8 +3,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserDocumentOnRegister } from "./usersAPI.js";
 import { createDogDocumentOnRegistration } from "./dogsAPI.js";
 import { auth } from "./firebase.js";
-import { deleteDogDocument } from './../services/dogsAPI';
-import { deleteUserDocument } from './../services/usersAPI';
+import { deleteDogDocument } from "./../services/dogsAPI";
+import { deleteUserDocument } from "./../services/usersAPI";
 
 export const handleUserRegistration = async (user, dog) => {
   /*if (!user || !dog) {
@@ -108,19 +108,14 @@ export const handleUserSignOut = async () => {
 };
 
 export const handleDeleteAccount = async (id) => {
-  
-    try {
-      await Promise.all([
-        deleteUserDocument(id),
-        deleteDogDocument(id)
-      ])
-      
-      let user = auth.currentUser
-      user?.delete()
+  try {
+    await Promise.all([deleteUserDocument(id), deleteDogDocument(id)]);
 
-     return 200
-      
+    let user = auth.currentUser;
+    user?.delete();
+
+    return 200;
   } catch (error) {
     return 500;
   }
-}
+};

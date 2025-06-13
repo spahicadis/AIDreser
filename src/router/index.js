@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/authStore";
 import { toast } from "vue3-toastify";
 
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -46,13 +44,13 @@ const router = createRouter({
           path: "settings",
           component: () => import("@/views/DashboardSettingsView.vue"),
           name: "Settings",
-        }
-      ]
+        },
+      ],
     },
     {
       path: "/:pathMatch(.*)*",
-      component: () => import("@/views/NotFound.vue")
-    }
+      component: () => import("@/views/NotFound.vue"),
+    },
   ],
 });
 
@@ -60,17 +58,20 @@ const router = createRouter({
 //Fix displaying of toast(longer display)
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore();
-  await authStore.init() 
-  if ((authStore.currentUser === null && to.name === "Commands") || (authStore.currentUser === null && to.name === "Ask trainer") || ( authStore.currentUser === null && to.name === "Settings")) {
-    
+  await authStore.init();
+  if (
+    (authStore.currentUser === null && to.name === "Commands") ||
+    (authStore.currentUser === null && to.name === "Ask trainer") ||
+    (authStore.currentUser === null && to.name === "Settings")
+  ) {
     setTimeout(() => {
       toast.error("Molimo prijavite se kako bi imali pristup", {
         autoClose: false,
         pauseOnHover: true,
         position: "top-right",
       });
-    }, 100)
-  
+    }, 100);
+
     return next({ name: "Onboarding" });
   }
   return next();

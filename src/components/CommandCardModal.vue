@@ -7,50 +7,43 @@ import CommandStepCard from "./CommandStepCard.vue";
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    required: true,
+    required: false,
   },
 
   nameOfCommand: {
     type: String,
-    required: true,
+    required: false,
   },
 
   videoForCommand: {
     type: String,
-    required: true,
+    required: false,
   },
 
   textForCommand: {
     type: String,
-    required: true,
+    required: false,
   },
 
   stepsForCommand: {
     type: Array,
-    required: true,
+    required: false,
   },
 
   commandQuestion: {
     type: String,
-    required: true,
+    required: false,
   },
 
   isModalLoading: {
     type: Boolean,
-    required: true,
+    required: false,
   }
 
   //Kasnije ostalo za prop drilling mali. Emmits?
 })
 
 const emits = defineEmits(["handleModal", "sendImages"]);
-
-const fallback = ref([
-  { stepImage: null, stepText: "" },
-  { stepImage: null, stepText: "" },
-  { stepImage: null, stepText: "" }
-]);
-
 
 
 const file = ref(null)
@@ -149,8 +142,8 @@ const handleSendImages = () => {
         </div>
         <div class="w-full flex flex-col gap-3">
           <h3 class="text-md font-semibold">Koraci</h3>
-          <CommandStepCard v-for="(step, index) in stepsForCommand ? stepsForCommand : fallback" :key="index"
-            :step-image="step.stepImage" :step-text="step.stepText" :is-steps-loading="isModalLoading" />
+          <CommandStepCard v-for="(step, index) in stepsForCommand" :key="index" :step-image="step.stepImage"
+            :step-text="step.stepText" :is-steps-loading="isModalLoading" />
         </div>
         <div class="w-full flex flex-col gap-2.5">
           <h3 class="text-center font-semibold text-md">Nakon odrađenih koraka, uslikajte svoga psa kako izvodi naredbu

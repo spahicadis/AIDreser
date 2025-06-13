@@ -57,8 +57,8 @@ watchEffect(() => {
   if (isLoading.value === false && profileStore.isLoading === false) {
     isDisabled.value = profileStore.profileData?.dog?.levelNumber < props.commandLevel
   }
-}, { immediate: true })
-//Pokrecemo odmah na pocetku zbog inicijalizacije
+})
+
 
 
 </script>

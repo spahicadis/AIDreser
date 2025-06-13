@@ -84,7 +84,6 @@ const handleAskTrainerAction = async (e) => {
 const handleModalContent = async (id) => {
   try {
     contentModal.value = await getSingleComand(id);
-    console.log(contentModal.value)
   } catch (error) {
     throw new Error(error.message)
   } finally {
@@ -132,6 +131,14 @@ watch(openModal, (newValue) => {
     document.body.style.width = "100%"
   }
 })
+
+const fallback = ref([
+  { stepImage: null, stepText: "" },
+  { stepImage: null, stepText: "" },
+  { stepImage: null, stepText: "" }
+]);
+
+
 </script>
 
 <template>
@@ -140,21 +147,20 @@ watch(openModal, (newValue) => {
     <div
       class="w-full h-full py-8 grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:gap-10 gap-8 xl:grid-rows-3 xl:grid-cols-3 justify-items-center">
       <CommandCardComponent v-for="(data, index) in commandsStore.commandsData" :key="index"
-        :command-i-d="commandsStore.isLoading ? undefined : data.id"
-        :command-img="commandsStore.isLoading ? undefined : data.commandImage"
-        :command-title="commandsStore.isLoading ? undefined : data.commandTitle"
-        :command-difficulty="commandsStore.isLoading ? undefined : data.commandDifficulty"
-        :command-level="commandsStore.isLoading ? undefined : data.commandLevel"
-        :is-card-loading="commandsStore.isLoading" @handle-modal="handleVisibilityOfModal" />
+        :command-i-d="commandsStore.isLoading ? '' : data.id"
+        :command-img="commandsStore.isLoading ? '' : data.commandImage"
+        :command-title="commandsStore.isLoading ? '' : data.commandTitle"
+        :command-difficulty="commandsStore.isLoading ? '' : data.commandDifficulty"
+        :command-level="commandsStore.isLoading ? 0 : data.commandLevel" :is-card-loading="commandsStore.isLoading"
+        @handle-modal="handleVisibilityOfModal" />
 
     </div>
     <CommandCardModal :is-open="openModal" :name-of-command="isContentLoading ? undefined : contentModal.commandTitle"
-      :video-for-command="isContentLoading ? undefined : contentModal.modalIframe"
-      :text-for-command="isContentLoading ? undefined : contentModal.modalText"
-      :steps-for-command="isContentLoading ? undefined : contentModal.modalSteps"
-      :command-question="isContentLoading ? undefined : contentModal.commandQuestion"
-      :is-modal-loading="isContentLoading" @handle-modal="handleVisibilityOfModal"
-      @send-images="handleAskTrainerAction" />
+      :video-for-command="isContentLoading ? '' : contentModal.modalIframe"
+      :text-for-command="isContentLoading ? '' : contentModal.modalText"
+      :steps-for-command="isContentLoading ? fallback : contentModal.modalSteps"
+      :command-question="isContentLoading ? '' : contentModal.commandQuestion" :is-modal-loading="isContentLoading"
+      @handle-modal="handleVisibilityOfModal" @send-images="handleAskTrainerAction" />
     <AIResponseModal :is-open="openAIModal" :is-loading="isAIResponding"
       :-a-i-response="AIResponse ? AIResponse : undefined" @close="handleVisibilityOfAIModal" />
   </div>
