@@ -5,12 +5,11 @@ import { updateDogDocumentData } from '../../services/dogsAPI.js';
 import { updateUserDocumentData } from '../../services/usersAPI.js';
 import { handleDeleteAccount } from '../../services/authAPI.js';
 import { useProfileStore } from '@/stores/profileStore.js';
-import { cloundinaryUplodImage } from '../../services/cloudinaryAPI.js';
 import infoIcon from "../assets/infoIcon.svg"
 import VueSelect from 'vue3-select-component';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-
+import { cloundinaryUplodImage } from '../../services/cloudinaryAPI.js'
 
 const profileStore = useProfileStore()
 const router = useRouter()

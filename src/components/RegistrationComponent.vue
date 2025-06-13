@@ -4,9 +4,9 @@ import { useRouter } from 'vue-router';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { handleUserRegistration } from '../../services/authAPI.js';
-import { cloundinaryUplodImage } from '../../services/cloudinaryAPI.js';
 import iconhint from '../assets/IconHint.svg'
 import uploadIcon from '../assets/uploadIcon.svg'
+import { cloundinaryUplodImage } from '../../services/cloudinaryAPI.js'
 const router = useRouter();
 
 //Form input states:
