@@ -16,7 +16,7 @@ Sučelje se sastoji od nekoliko sekcija:
 ### 📌 Glavne sekcije:
 
 - **Sekcija komande**  
-  Korisnik pregledava sve naredbe i status profila. Nakon izvršene naredbe, korisnik šalje fotografiju psa. AIDreser analizira sliku i daje povratnu informaciju je li pas uspješno izvršio naredbu.
+  Korisnik ima pristup svim naredbama i pregled statusa profila. Nakon izvršene naredbe, korisnik šalje fotografiju psa. AIDreser analizira sliku i daje povratnu informaciju je li pas uspješno izvršio naredbu.
 
 - **Sekcija pitaj trenera**  
   Ako korisnik ima problema s naredbama ili želi dodatni sadržaj, može se obratiti AIDreseru za pomoć.
