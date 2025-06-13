@@ -5,9 +5,8 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import { handleUserRegistration } from '../../services/authAPI.js';
 import iconhint from '../assets/IconHint.svg'
-import uploadicon from '../assets/UploadIcon.svg'
 import { cloundinaryUplodImage } from '../../services/cloudinaryAPI.js';
-
+import uploadIcon from '../assets/uploadIcon.svg'
 const router = useRouter();
 
 //Form input states:
@@ -199,7 +198,7 @@ const handleRegistrationAction = async () => {
       <div class="flex flex-col gap-1 w-full sm:w-[343px] min-h-[auto]">
         <label>Odaberite sliku Vašeg psa</label>
         <label for="file-input"
-          class="h-[40px] rounded-md shadow-md flex items-center justify-center cursor-pointer"><img :src="uploadicon"
+          class="h-[40px] rounded-md shadow-md flex items-center justify-center cursor-pointer"><img :src="uploadIcon"
             alt="File upload icon" /></label>
         <input type="file" class="opacity-0 w-0 h-0 absolute" id="file-input" @change="(e) => handleUploadFile(e)" />
         <span class="text-xs">{{ uploadedFile }}</span>
