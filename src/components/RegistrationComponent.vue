@@ -59,7 +59,7 @@ watch([userName, userSurname, userEmail, userPassword], () => {
   }
 })
 watch([dogName, dogBreed, dogAge, dogWeight, dogTreat, dogImage], () => {
-  if (dogName.value && dogBreed.value && dogAge.value && dogWeight.value, dogTreat.value, dogImage.value) {
+  if (dogName.value && dogBreed.value && dogAge.value && dogWeight.value && dogTreat.value && dogImage.value) {
     isDisabledSecond.value = false;
   }
   else {
